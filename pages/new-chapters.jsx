@@ -167,7 +167,7 @@ export default function Home({ latestmangachapters }) {
                         <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
                             {latestmangachapters?.map((manga, index) => (
                                 <div key={index} className="bg-[#091e25] overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
-                                    <Link href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] object-cover w-[full] h-full' src={manga?.photo} alt={manga?.manganame} /></Link>
+                                    <Link href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] object-cover w-full h-[200px]' src={manga?.photo} alt={manga?.manganame} /></Link>
                                     <div className="px-4 py-5">
                                         <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                                             <p className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold sm:w-[200px] pb-3`}>{manga?.mangaName}</p>

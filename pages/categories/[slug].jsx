@@ -208,10 +208,10 @@ const Category = ({ errorCode, category, mangas, query, totalCount }) => {
 
                         <div className="flex justify-center sm:gap-10 gap-3 flex-wrap">
                             {mangas?.map((manga, index) => (
-                                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[140px] bg-[#091e25]" key={index}>
+                                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[45%] bg-[#091e25]" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                                         <img src={manga?.photo} alt={`${manga?.name} Cover`}
-                                            className="mb-2 h-[160px] sm:h-[200px] sm:w-[200px] w-[140px] object-cover" />
+                                            className="mb-2 sm:h-[200px] sm:w-[200px] w-full h-[200px] object-cover " />
                                         <div className='p-3'>
                                             <p className="sm:text-[12px] text-[10px] mb-1">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
                                             <p className={`${roboto2.className} sm:text-[14px] text-[12px]  mb-1 text-wrap break-words`}>{manga?.name}</p>

@@ -1,4 +1,4 @@
-export async function getStaticProps() {
+export async function getServerSideProps({ res }) {
   try {
     const page = 1;
     const [data, categories, latestmangas, latestmangachapters] = await Promise.all([
@@ -8,7 +8,13 @@ export async function getStaticProps() {
       getLatestMangaChapters(),
     ]);
 
-    if (data.error) { return { props: { errorCode: 404 } }; }
+    if (data.error) {
+      return { props: { errorCode: 404 } };
+    }
+
+    // Set caching headers
+    res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
+
     return {
       props: {
         mangas: data?.data || [],
@@ -16,13 +22,13 @@ export async function getStaticProps() {
         latestmangas: latestmangas.mangas,
         latestmangachapters: latestmangachapters,
       },
-      revalidate: 21600, // Revalidate every 6 hours (21600 seconds)
     };
   } catch (error) {
     console.error(error);
     return { props: { errorCode: 500 } };
   }
 }
+
 
 
 
@@ -216,7 +222,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
         <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
           {latestmangachapters?.map((manga, index) => (
             <div key={index} className="bg-[#091e25] overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
-              <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] object-cover w-full' src={manga?.photo} alt={manga?.manganame} /></Link>
+              <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={manga?.photo} alt={manga?.manganame} /></Link>
               <div className="px-4 py-5">
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                   <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold w-[115px] pb-3`}>{manga?.mangaName}</div>

@@ -24,7 +24,7 @@ export default function Navbar() {
                         <span className="uppercase text-lg tracking-wider text-[19px] font-extrabold md:text-[22px]"><Link prefetch={false} className={`${roboto.className}`} href="/">{NavbarName}</Link></span>
                     </div>
                     <div className="flex gap-5 items-center">
-                        <span onClick={() => toggle(menuRef)} className="md:hidden text-[22px] font-extrabold mr-4">☰</span>
+                        <span onClick={() => toggle(menuRef)} className="md:hidden text-[22px] cursor-pointer font-extrabold mr-4">☰</span>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@ export default function Navbar() {
                     <ul id="menu" ref={menuRef} className="md:flex md:space-x-10 md:pb-0 pb-4 items-center font-bold  text-center leading-[3] hidden">
                         {navLinks.map((link, index) => (
                             <li key={index}>
-                                <Link prefetch={false} href={link.href} className={`${roboto.className} hover:text-blue-300 tracking-wider text-[17px] font-bold hover:underline uppercase`}>{link.text}</Link>
+                                <Link prefetch={false} href={link.href} className={`${roboto.className} hover:text-blue-300 pr-3 tracking-wider text-[17px] font-bold hover:underline uppercase`}>{link.text}</Link>
                             </li>
                         ))}
                     </ul>

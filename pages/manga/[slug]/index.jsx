@@ -1,14 +1,12 @@
-export async function getStaticPaths() {
-    const slugs = ["one-piece"];
-    const paths = slugs.map(slug => ({ params: { slug } }));
-    return { paths, fallback: 'blocking' };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params, res }) {
     try {
+        // Fetch the manga chapters
         const response = await getmangachaptersRelated(params?.slug);
-        if (response?.error) { return { props: { errorcode: true } }; }
+        if (response?.error) {
+            return { props: { errorcode: true } };
+        }
 
+        // Sort the chapters
         const sortChapters = (chapterNumbers) => {
             return chapterNumbers?.sort((a, b) => {
                 const parseChapter = (chapter) => {
@@ -22,14 +20,20 @@ export async function getStaticProps({ params }) {
         };
 
         const chapterNumbers = response?.data?.map(chapter => chapter.chapterNumber) || [];
-        const sortedchapterNumbers = sortChapters(chapterNumbers);
-        const reversedChapterNumbers = sortedchapterNumbers.reverse();
+        const sortedChapterNumbers = sortChapters(chapterNumbers);
+        const reversedChapterNumbers = sortedChapterNumbers.reverse();
+
+        // Set caching headers
+        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
+
+        // Return props
         return { props: { manga: response, chapterArray: reversedChapterNumbers } };
     } catch (error) {
         console.error('Error fetching manga data:', error);
         return { props: { errorcode: true } };
     }
 }
+
 
 
 
@@ -333,12 +337,12 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                         <h2 className={`${roboto.className} text-center text-3xl font-bold pb-10 text-white`}>Related</h2>
                         <div className="flex justify-center sm:gap-10 gap-3 flex-wrap pb-10">
                             {manga?.relatedMangas?.map((manga, index) => (
-                                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[180px] w-[140px] bg-[#091e25] text-white" key={index}>
+                                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[180px] w-[45%] bg-[#091e25] text-white" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[180px] h-[160px] w-[140px] object-cover" />
+                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[180px] h-[200px] w-full object-cover" />
                                         <div className='px-3 py-3'>
-                                            <p className={`${roboto2.className} sm:text-[15px] text-[11px] font-semibold mb-1 text-wrap break-words`}>{manga?.name}</p>
                                             <p className="sm:text-[13px] text-[9px] my-1 py-1  font-bold">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
+                                            <p className={`${roboto2.className} sm:text-[15px] text-[11px] font-semibold mb-1 text-wrap break-words`}>{manga?.name}</p>
                                         </div>
                                     </Link>
                                 </div>

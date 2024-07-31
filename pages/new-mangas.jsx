@@ -208,9 +208,9 @@ const NewMangas = ({ latestmangas, errorCode, totalCount, category }) => {
                             {latestmangas?.map((manga, index) => (
                                 <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[45%] bg-[#091e25]" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[220px] sm:w-[200px] w-[full]  object-cover" />
+                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[220px] sm:w-[200px] w-full  object-cover h-[200px]" />
                                         <div className='p-3'>
-                                            <p className="sm:text-[12px] text-[10px] mb-1.5">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
+                                            <p className="sm:text-[12px] font-bold text-[10px] mb-1.5">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
                                             <p className={`${roboto.className} sm:text-[14px] text-[12px] mb-1 text-wrap break-words`}>{manga?.name}</p>
                                         </div>
                                     </Link>

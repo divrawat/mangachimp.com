@@ -1,39 +1,9 @@
-/*
-export async function getServerSideProps({ params }) {
-
-    const response = await getParticularMangachapterwithRelated(params.slug, params.chapter);
-    if (response?.error) { return { props: { errorcode: true } }; }
-
-    const sortChapters = (chapterNumbers) => {
-        return chapterNumbers?.sort((a, b) => {
-            const parseChapter = (chapter) => {
-                const match = chapter.match(/(\d+)([a-z]*)/i);
-                return [parseInt(match[1]), match[2] || ''];
-            };
-            const [numA, suffixA] = parseChapter(a);
-            const [numB, suffixB] = parseChapter(b);
-            return numA !== numB ? numA - numB : suffixA.localeCompare(suffixB);
-        });
-    };
-
-    const chapterNumbers = response?.allchapterNumbers?.map(chapter => chapter.chapterNumber) || [];
-    const sortedchapterNumbers = sortChapters(chapterNumbers);
-    const reversedChapterNumbers = sortedchapterNumbers.reverse();
-    return { props: { manga: response?.manga, chapterData: response?.chapterData, relatedMangas: response?.relatedMangas, chapterArray: reversedChapterNumbers } }
-}
-*/
-
-
-
-export async function getStaticPaths() {
-    const paths = [{ params: { slug: 'one-piece', chapter: 'chapter-1' } }];
-    return { paths, fallback: 'blocking' };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params, res }) {
     try {
         const response = await getParticularMangachapterwithRelated(params.slug, params.chapter);
-        if (response?.error) { { return { props: { errorcode: true } }; } }
+        if (response?.error) {
+            return { props: { errorcode: true } };
+        }
 
         const sortChapters = (chapterNumbers) => {
             return chapterNumbers?.sort((a, b) => {
@@ -48,18 +18,25 @@ export async function getStaticProps({ params }) {
         };
 
         const chapterNumbers = response?.allchapterNumbers?.map(chapter => chapter.chapterNumber) || [];
-        const sortedchapterNumbers = sortChapters(chapterNumbers);
+        const sortedChapterNumbers = sortChapters(chapterNumbers);
+
+        // Set caching headers
+        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
 
         return {
             props: {
-                manga: response?.manga, chapterData: response?.chapterData, relatedMangas: response?.relatedMangas, chapterArray: sortedchapterNumbers,
+                manga: response?.manga,
+                chapterData: response?.chapterData,
+                relatedMangas: response?.relatedMangas,
+                chapterArray: sortedChapterNumbers,
             }
         };
     } catch (error) {
         console.error('Error fetching manga data:', error);
-        { return { props: { errorcode: true } }; }
+        return { props: { errorcode: true } };
     }
 }
+
 
 
 
@@ -413,9 +390,9 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
 
                         <div className="flex justify-center sm:gap-10 gap-3 flex-wrap pb-10 px-3">
                             {relatedMangas?.map((manga, index) => (
-                                <div className="hover:scale-110 transition-transform text-white rounded shadow sm:w-[200px] w-[140px] bg-[#051015]" key={index}>
+                                <div className="hover:scale-110 transition-transform text-white rounded shadow sm:w-[200px] w-[45%] bg-[#051015]" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[230px] sm:w-[200px] w-[140px] h-[160px] object-cover" />
+                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[230px] sm:w-[200px] w-full h-[200px] object-cover " />
                                         <div className='sm:px-5 px-3 py-3'>
                                             <p className="sm:text-[11.5px] text-[9px] mb-1 font-bold">{` Total Chapters:  ${manga?.chapterCount}`}</p>
                                             <p className="sm:text-[13.5px] text-[11px] font-bold mb-1 text-wrap break-words">{manga?.name}</p>
