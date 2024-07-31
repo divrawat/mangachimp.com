@@ -54,7 +54,7 @@ import React from 'react';
 import parse from 'html-react-parser';
 register();
 import { useRouter } from 'next/router';
-export const runtime = 'experimental-edge';
+// export const runtime = 'experimental-edge';
 
 
 export default function Home({ mangas, categories, latestmangas, latestmangachapters, metatags }) {
