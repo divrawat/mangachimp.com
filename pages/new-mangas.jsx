@@ -149,11 +149,11 @@ const NewMangas = ({ latestmangas, errorCode, totalCount, metatags }) => {
             <title>{`${APP_NAME}: New Mangas`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-            {metatags?.map((metaTag, index) => (
+            {/* {metatags?.map((metaTag, index) => (
                 <React.Fragment key={index}>
                     {parseMetaTags(metaTag.content)}
                 </React.Fragment>
-            ))}
+            ))} */}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/new-chapters?page=${currentPage}`} />

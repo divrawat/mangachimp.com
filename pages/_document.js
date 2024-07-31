@@ -6,7 +6,6 @@ export default function Document() {
     <Html lang="en">
       <Head>
 
-
         {/* <link rel="icon" type="image/x-icon" href={`${IMAGES_SUBDOMAIN}/public/favicon.ico`} /> */}
         <link rel="icon" href={`${FAVICON}`} sizes="any" />
         <link rel="apple-touch-icon" sizes="180x180" href={`${IMAGES_SUBDOMAIN}/public/apple-touch-icon.png`} />

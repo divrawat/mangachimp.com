@@ -43,7 +43,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Head from 'next/head';
 import { getmangachaptersRelated } from '@/actions/manga';
-import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE } from '@/config';
+import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO } from '@/config';
 import { getAllMetaTags } from '@/actions/metatags';
 import { FaHome } from "react-icons/fa";
 import { Rubik } from '@next/font/google';
@@ -92,22 +92,22 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                 "logo": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,
-                    // "url": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
-                    // "contentUrl": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
+                    "url": `${APP_LOGO}`,
+                    "contentUrl": `${APP_LOGO}`,
                     "caption": `${APP_NAME}`,
                     "inLanguage": "en-US",
-                    // "width": "512",
-                    // "height": "534"
+                    "width": "80",
+                    "height": "80"
                 },
                 "image": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,
-                    // "url": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
-                    // "contentUrl": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
+                    "url": `${APP_LOGO}`,
+                    "contentUrl": `${APP_LOGO}`,
                     "caption": `${APP_NAME}`,
                     "inLanguage": "en-US",
-                    // "width": "512",
-                    // "height": "534"
+                    "width": "80",
+                    "height": "80"
                 }
             },
             {
@@ -215,11 +215,11 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
             <title>{`${manga?.manga?.name} ${manga?.manga?.type}: ${APP_NAME}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-            {metatags?.map((metaTag, index) => (
+            {/* {metatags?.map((metaTag, index) => (
                 <React.Fragment key={index}>
                     {parseMetaTags(metaTag.content)}
                 </React.Fragment>
-            ))}
+            ))} */}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <meta property="og:locale" content="en_US" />

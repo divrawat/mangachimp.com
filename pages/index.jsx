@@ -46,15 +46,13 @@ import { getCategories } from '@/actions/category';
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import Head from 'next/head';
 import Link from "next/link";
-import { DOMAIN, APP_NAME } from "@/config";
+import { DOMAIN, APP_NAME, APP_LOGO } from "@/config";
 const roboto = Rubik({ subsets: ['latin'], weight: '800', });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '400', });
 const roboto3 = Rubik({ subsets: ['latin'], weight: '600', });
-import React from 'react';
-import parse from 'html-react-parser';
 register();
 import { useRouter } from 'next/router';
-// export const runtime = 'experimental-edge';
+export const runtime = 'experimental-edge';
 
 
 export default function Home({ mangas, categories, latestmangas, latestmangachapters, metatags }) {
@@ -81,12 +79,12 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
         "image": {
           "@type": "ImageObject",
           "@id": `${DOMAIN}/#logo`,
-          // "url": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
-          // "contentUrl": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
+          "url": `${APP_LOGO}`,
+          "contentUrl": `${APP_LOGO}`,
           "caption": `${APP_NAME}`,
           "inLanguage": "en-US",
-          // "width": "512",
-          // "height": "534"
+          "width": "80",
+          "height": "80"
         }
       },
       {
@@ -125,11 +123,11 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
       <title>{`${APP_NAME}: The Ultimate Destination For Reading Manga, Manhwa, Manhua, WebComic, Novels`}</title>
       <meta name="description" content={DESCRIPTION} />
       <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-      {metatags && metatags?.map((metaTag, index) => (
+      {/* {metatags && metatags?.map((metaTag, index) => (
         <React.Fragment key={index}>
           {parseMetaTags(metaTag?.content)}
         </React.Fragment>
-      ))}
+      ))} */}
       <meta name="googlebot" content="noarchive" />
       <meta name="robots" content="noarchive" />
       <meta property="og:locale" content="en_US" />

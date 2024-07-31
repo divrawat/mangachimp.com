@@ -25,7 +25,7 @@ export async function getServerSideProps({ query, res }) {
 
 import Head from 'next/head';
 import { singleCategory } from '@/actions/category';
-import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE } from '@/config';
+import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO } from '@/config';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getAllMetaTags } from '@/actions/metatags';
@@ -73,12 +73,12 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
                 "image": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,
-                    // "url": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
-                    // "contentUrl": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
+                    "url": `${APP_LOGO}`,
+                    "contentUrl": `${APP_LOGO}`,
                     "caption": `${APP_NAME}`,
                     "inLanguage": "en-US",
-                    // "width": "512",
-                    // "height": "534"
+                    "width": "80",
+                    "height": "80"
                 }
             },
             {
@@ -143,11 +143,11 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
             <title>{`${category.name} Page ${currentPage}: ${APP_NAME}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-            {metatags?.map((metaTag, index) => (
+            {/* {metatags?.map((metaTag, index) => (
                 <React.Fragment key={index}>
                     {parseMetaTags(metaTag.content)}
                 </React.Fragment>
-            ))}
+            ))} */}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/categories/${category.name}?page=${currentPage}`} />

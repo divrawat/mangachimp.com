@@ -50,7 +50,7 @@ export async function getServerSideProps({ params, res }) {
 import { getParticularMangachapterwithRelated } from "@/actions/chapter";
 import Head from "next/head";
 import Link from "next/link";
-import { APP_NAME, DOMAIN, IMAGES_SUBDOMAIN, NOT_FOUND_IMAGE } from "@/config";
+import { APP_NAME, DOMAIN, IMAGES_SUBDOMAIN, NOT_FOUND_IMAGE, APP_LOGO } from "@/config";
 import { getAllMetaTags } from '@/actions/metatags';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -109,22 +109,22 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                 "logo": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,
-                    // "url": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
-                    // "contentUrl": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
+                    "url": `${APP_LOGO}`,
+                    "contentUrl": `${APP_LOGO}`,
                     "caption": `${APP_NAME}`,
                     "inLanguage": "en-US",
-                    // "width": "512",
-                    // "height": "534"
+                    "width": "80",
+                    "height": "80"
                 },
                 "image": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,
-                    // "url": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
-                    // "contentUrl": "https://kingofshojo.com/wp-content/uploads/2024/03/adawewtyy-1.png",
+                    "url": `${APP_LOGO}`,
+                    "contentUrl": `${APP_LOGO}`,
                     "caption": `${APP_NAME}`,
                     "inLanguage": "en-US",
-                    // "width": "512",
-                    // "height": "534"
+                    "width": "80",
+                    "height": "80"
                 }
             },
             {
@@ -153,8 +153,8 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                         "@type": "ListItem",
                         "position": 2,
                         "item": {
-                            // "@id": "https://kingofshojo.com/category/omniscient-readers-viewpoint/",
-                            "name": `${DOMAIN}/manga/${manga?.slug}`
+                            "@id": `${DOMAIN}/manga/${manga?.slug}`,
+                            "name": `${manga?.name}`
                         }
                     },
                     {
@@ -231,11 +231,11 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
             <title>{`${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-            {metatags?.map((metaTag, index) => (
+            {/* {metatags?.map((metaTag, index) => (
                 <React.Fragment key={index}>
                     {parseMetaTags(metaTag.content)}
                 </React.Fragment>
-            ))}
+            ))} */}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`} />
