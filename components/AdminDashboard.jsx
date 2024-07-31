@@ -12,6 +12,7 @@ import { MdCategory } from "react-icons/md";
 import { isAuth, getCookie, signout } from "@/actions/auth";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { FaPhoneSquare } from "react-icons/fa";
 
 const token = getCookie('token');
 
@@ -75,7 +76,8 @@ const AdminDashboard = ({ children }) => {
                 { pathname: '/admin/chapters/bulk-delete-chapters', icon: <MdEditSquare size={20} />, text: 'Bulk Delete Chapters' },
             ], hasSubItems: true
         },
-        { pathname: '/admin/contact', icon: <MdCategory size={20} />, text: 'Contacts', hasSubItems: false },
+        { pathname: '/admin/contact', icon: <FaPhoneSquare size={20} />, text: 'Contacts', hasSubItems: false },
+        { pathname: '/admin/head-tags', icon: <MdCategory size={20} />, text: 'Head Tags', hasSubItems: false },
 
     ], []);
 

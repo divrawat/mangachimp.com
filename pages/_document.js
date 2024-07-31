@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
 
 
-        <link rel="icon" type="image/x-icon" href={`${IMAGES_SUBDOMAIN}/public/favicon.ico`} />
+        {/* <link rel="icon" type="image/x-icon" href={`${IMAGES_SUBDOMAIN}/public/favicon.ico`} /> */}
         <link rel="icon" href={`${FAVICON}`} sizes="any" />
         <link rel="apple-touch-icon" sizes="180x180" href={`${IMAGES_SUBDOMAIN}/public/apple-touch-icon.png`} />
         <link rel="icon" type="image/png" sizes="32x32" href={`${IMAGES_SUBDOMAIN}/public/favicon-32x32.png`} />

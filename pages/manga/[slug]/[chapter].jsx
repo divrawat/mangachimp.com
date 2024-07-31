@@ -1,6 +1,7 @@
 export async function getServerSideProps({ params, res }) {
     try {
         const response = await getParticularMangachapterwithRelated(params.slug, params.chapter);
+        const metatags = await getAllMetaTags();
         if (response?.error) {
             return { props: { errorcode: true } };
         }
@@ -29,6 +30,7 @@ export async function getServerSideProps({ params, res }) {
                 chapterData: response?.chapterData,
                 relatedMangas: response?.relatedMangas,
                 chapterArray: sortedChapterNumbers,
+                metatags: metatags?.data
             }
         };
     } catch (error) {
@@ -49,6 +51,7 @@ import { getParticularMangachapterwithRelated } from "@/actions/chapter";
 import Head from "next/head";
 import Link from "next/link";
 import { APP_NAME, DOMAIN, IMAGES_SUBDOMAIN, NOT_FOUND_IMAGE } from "@/config";
+import { getAllMetaTags } from '@/actions/metatags';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Rubik } from '@next/font/google';
@@ -59,6 +62,8 @@ import { useState, useEffect } from "react";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { AiFillChrome } from "react-icons/ai";
 const roboto = Rubik({ subsets: ['latin'], weight: '800', });
+import React from 'react';
+import parse from 'html-react-parser';
 import DisqusComments from '@/components/DisQus';
 export const runtime = 'experimental-edge';
 
@@ -66,7 +71,7 @@ export const runtime = 'experimental-edge';
 
 
 
-export default function Chapter({ errorcode, manga, chapterArray, relatedMangas, chapterData }) {
+export default function Chapter({ errorcode, manga, chapterArray, relatedMangas, chapterData, metatags }) {
 
     if (errorcode) {
         const head = () => (<Head> <title>{`404 Page Not Found: ${APP_NAME}`}</title> </Head>);
@@ -215,12 +220,22 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
         ]
     }
 
+    const parseMetaTags = (htmlString) => {
+        if (!htmlString) return null;
+        return parse(htmlString);
+    };
+
 
     const head = () => (
         <Head>
             <title>{`${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+            {metatags?.map((metaTag, index) => (
+                <React.Fragment key={index}>
+                    {parseMetaTags(metaTag.content)}
+                </React.Fragment>
+            ))}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`} />

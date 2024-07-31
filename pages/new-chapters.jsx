@@ -2,6 +2,7 @@
 export async function getServerSideProps({ res }) {
     try {
         const data = await getLatestMangaChapters();
+        const metatags = await getAllMetaTags();
 
         res.setHeader(
             'Cache-Control',
@@ -10,7 +11,7 @@ export async function getServerSideProps({ res }) {
 
 
         if (data.error) { return { props: { errorCode: 404 } }; }
-        return { props: { latestmangachapters: data }, };
+        return { props: { latestmangachapters: data, metatags: metatags?.data }, };
 
     } catch (error) {
         console.error(error);
@@ -24,13 +25,16 @@ import Footer from "@/components/Footer";
 import { getLatestMangaChapters } from '@/actions/chapter';
 import Link from "next/link";
 import { FaHome } from "react-icons/fa";
+import { getAllMetaTags } from '@/actions/metatags';
 import { DOMAIN, APP_NAME } from "@/config";
 const roboto = Rubik({ subsets: ['latin'], weight: '800', });
 const roboto3 = Rubik({ subsets: ['latin'], weight: '600', });
 import Head from 'next/head';
+import React from 'react';
+import parse from 'html-react-parser';
 export const runtime = 'experimental-edge';
 
-export default function Home({ latestmangachapters }) {
+export default function Home({ latestmangachapters, metatags }) {
 
 
     const DESCRIPTION = `Newly added chapters of all mangas, manhwas, manhuas, webtoons, and comics. Read and enjoy the latest chapters of your favorite manga series.`;
@@ -110,13 +114,21 @@ export default function Home({ latestmangachapters }) {
         ]
     };
 
-
+    const parseMetaTags = (htmlString) => {
+        if (!htmlString) return null;
+        return parse(htmlString);
+    };
 
     const head = () => (
         <Head>
             <title>{`${APP_NAME}: New Chapters`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+            {metatags?.map((metaTag, index) => (
+                <React.Fragment key={index}>
+                    {parseMetaTags(metaTag?.content)}
+                </React.Fragment>
+            ))}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/new-chapters`} />
@@ -131,10 +143,6 @@ export default function Home({ latestmangachapters }) {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         </Head >
     );
-
-
-
-
 
 
     return (

@@ -3,6 +3,7 @@ export async function getServerSideProps({ query, res }) {
     try {
         const { slug, page } = query;
         const data = await singleCategory(slug, page);
+        const metatags = await getAllMetaTags();
 
         res.setHeader(
             'Cache-Control',
@@ -12,7 +13,7 @@ export async function getServerSideProps({ query, res }) {
         if (data.error) {
             return { props: { errorCode: 404 } };
         } else {
-            return { props: { category: data.category, mangas: data.mangas, query, totalCount: data.totalCount } };
+            return { props: { category: data.category, mangas: data.mangas, query, totalCount: data.totalCount, metatags: metatags?.data } };
         }
 
     } catch (error) {
@@ -27,6 +28,7 @@ import { singleCategory } from '@/actions/category';
 import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE } from '@/config';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { getAllMetaTags } from '@/actions/metatags';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -34,9 +36,11 @@ import { FaHome } from "react-icons/fa";
 import { Rubik } from '@next/font/google';
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '700' });
+import React from 'react';
+import parse from 'html-react-parser';
 export const runtime = 'experimental-edge';
 
-const Category = ({ errorCode, category, mangas, query, totalCount }) => {
+const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) => {
 
     if (errorCode) {
         return (
@@ -129,12 +133,21 @@ const Category = ({ errorCode, category, mangas, query, totalCount }) => {
     const DESCRIPTION = `Read ${category.name} manga, smahwa, manhua online. This page contains all the ${category.name} manga/mahwa/manhua available on ${APP_NAME}.`;
 
 
+    const parseMetaTags = (htmlString) => {
+        if (!htmlString) return null;
+        return parse(htmlString);
+    };
 
     const head = () => (
         <Head>
             <title>{`${category.name} Page ${currentPage}: ${APP_NAME}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+            {metatags?.map((metaTag, index) => (
+                <React.Fragment key={index}>
+                    {parseMetaTags(metaTag.content)}
+                </React.Fragment>
+            ))}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/categories/${category.name}?page=${currentPage}`} />

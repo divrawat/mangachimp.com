@@ -2,6 +2,7 @@ export async function getServerSideProps({ params, res }) {
     try {
         // Fetch the manga chapters
         const response = await getmangachaptersRelated(params?.slug);
+        const metatags = await getAllMetaTags();
         if (response?.error) {
             return { props: { errorcode: true } };
         }
@@ -27,7 +28,7 @@ export async function getServerSideProps({ params, res }) {
         res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
 
         // Return props
-        return { props: { manga: response, chapterArray: reversedChapterNumbers } };
+        return { props: { manga: response, chapterArray: reversedChapterNumbers, metatags: metatags?.data } };
     } catch (error) {
         console.error('Error fetching manga data:', error);
         return { props: { errorcode: true } };
@@ -43,16 +44,19 @@ import Footer from '@/components/Footer';
 import Head from 'next/head';
 import { getmangachaptersRelated } from '@/actions/manga';
 import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE } from '@/config';
+import { getAllMetaTags } from '@/actions/metatags';
 import { FaHome } from "react-icons/fa";
 import { Rubik } from '@next/font/google';
 import { AiFillChrome } from "react-icons/ai";
 import DisqusComments from '@/components/DisQus';
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '700', });
+import React from 'react';
+import parse from 'html-react-parser';
 export const runtime = 'experimental-edge';
 
 
-const MangaPage = ({ errorcode, manga, chapterArray }) => {
+const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
 
     const mangaurl = manga?.manga?.slug;
 
@@ -201,11 +205,21 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
 
     const DESCRIPTION = `Read ${manga?.manga?.name} ${manga?.manga?.type} online. ${manga?.manga?.description}`;
 
+    const parseMetaTags = (htmlString) => {
+        if (!htmlString) return null;
+        return parse(htmlString);
+    };
+
     const head = () => (
         <Head>
             <title>{`${manga?.manga?.name} ${manga?.manga?.type}: ${APP_NAME}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+            {metatags?.map((metaTag, index) => (
+                <React.Fragment key={index}>
+                    {parseMetaTags(metaTag.content)}
+                </React.Fragment>
+            ))}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <meta property="og:locale" content="en_US" />

@@ -1,6 +1,9 @@
+const isProd = true;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // assetPrefix: isProd ? 'https://cdn.mangachimp.online' : undefined,
 };
 
 export default nextConfig;

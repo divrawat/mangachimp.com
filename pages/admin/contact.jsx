@@ -79,7 +79,7 @@ const AdminContacts = () => {
         <AdminDashboard>
             <Toaster />
 
-            <div className="text-center text-sm text-white font-bold mb-6">Total Chapters &nbsp;-&nbsp; {blogscount}</div>
+            <div className="text-center text-sm text-white font-bold mb-6">Total Contacts &nbsp;-&nbsp; {blogscount}</div>
 
             <input type="search" id="default-search" className="outline-none block w-full p-3 ps-10 text-sm text-white rounded-lg bg-gray-900" placeholder="Search Contacts" value={searchQuery} onChange={handleChangeSearch} />
 

@@ -2,6 +2,7 @@ export async function getServerSideProps({ query, res }) {
     try {
         const { page } = query;
         const data = await GetLatestMangas(page);
+        const metatags = await getAllMetaTags();
 
         res.setHeader(
             'Cache-Control',
@@ -12,7 +13,7 @@ export async function getServerSideProps({ query, res }) {
             return { props: { errorCode: 404 } };
         }
 
-        return { props: { latestmangas: data.mangas, totalCount: data.totalCount } };
+        return { props: { latestmangas: data.mangas, totalCount: data.totalCount, metatags: metatags?.data } };
 
     } catch (error) {
         console.error(error);
@@ -27,17 +28,20 @@ import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE } from '@/config';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+import { getAllMetaTags } from '@/actions/metatags';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaHome } from "react-icons/fa";
 import { Rubik } from '@next/font/google';
 import { GetLatestMangas } from '@/actions/manga';
+import React from 'react';
+import parse from 'html-react-parser';
 const roboto = Rubik({ subsets: ['latin'], weight: '600', });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '800', });
 export const runtime = 'experimental-edge';
 
 
-const NewMangas = ({ latestmangas, errorCode, totalCount, category }) => {
+const NewMangas = ({ latestmangas, errorCode, totalCount, metatags }) => {
 
     if (errorCode) {
         return (
@@ -135,13 +139,21 @@ const NewMangas = ({ latestmangas, errorCode, totalCount, category }) => {
         ]
     };
 
-
+    const parseMetaTags = (htmlString) => {
+        if (!htmlString) return null;
+        return parse(htmlString);
+    };
 
     const head = () => (
         <Head>
             <title>{`${APP_NAME}: New Mangas`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+            {metatags?.map((metaTag, index) => (
+                <React.Fragment key={index}>
+                    {parseMetaTags(metaTag.content)}
+                </React.Fragment>
+            ))}
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/new-chapters?page=${currentPage}`} />

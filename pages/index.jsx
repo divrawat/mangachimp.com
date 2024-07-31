@@ -1,18 +1,15 @@
 export async function getServerSideProps({ res }) {
   try {
     const page = 1;
-    const [data, categories, latestmangas, latestmangachapters] = await Promise.all([
+    const [data, categories, latestmangas, latestmangachapters, getmetatags] = await Promise.all([
       getMangasHomePage(),
       getCategories(),
       GetLatestMangas(page),
       getLatestMangaChapters(),
+      getAllMetaTags()
     ]);
 
-    if (data.error) {
-      return { props: { errorCode: 404 } };
-    }
-
-    // Set caching headers
+    if (data.error) { return { props: { errorCode: 404 } }; }
     res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
 
     return {
@@ -21,6 +18,7 @@ export async function getServerSideProps({ res }) {
         categories: categories?.categories || [],
         latestmangas: latestmangas.mangas,
         latestmangachapters: latestmangachapters,
+        metatags: getmetatags?.data
       },
     };
   } catch (error) {
@@ -28,10 +26,6 @@ export async function getServerSideProps({ res }) {
     return { props: { errorCode: 500 } };
   }
 }
-
-
-
-
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -42,10 +36,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import "swiper/swiper-bundle.css";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getMangasHomePage, GetLatestMangas } from "@/actions/manga";
+import { getAllMetaTags } from '@/actions/metatags';
 import { getLatestMangaChapters } from '@/actions/chapter';
 import { getCategories } from '@/actions/category';
 import { FaArrowAltCircleRight } from "react-icons/fa";
@@ -55,13 +50,15 @@ import { DOMAIN, APP_NAME } from "@/config";
 const roboto = Rubik({ subsets: ['latin'], weight: '800', });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '400', });
 const roboto3 = Rubik({ subsets: ['latin'], weight: '600', });
+import React from 'react';
+import parse from 'html-react-parser';
 register();
 import { useRouter } from 'next/router';
 export const runtime = 'experimental-edge';
 
 
 
-export default function Home({ mangas, categories, latestmangas, latestmangachapters }) {
+export default function Home({ mangas, categories, latestmangas, latestmangachapters, metatags }) {
 
 
   const router = useRouter();
@@ -118,12 +115,22 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
     ]
   };
 
+  const parseMetaTags = (htmlString) => {
+    if (!htmlString) return null;
+    return parse(htmlString);
+  };
 
   const head = () => (
     <Head>
+
       <title>{`${APP_NAME}: The Ultimate Destination For Reading Manga, Manhwa, Manhua, WebComic, Novels`}</title>
       <meta name="description" content={DESCRIPTION} />
       <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+      {metatags?.map((metaTag, index) => (
+        <React.Fragment key={index}>
+          {parseMetaTags(metaTag.content)}
+        </React.Fragment>
+      ))}
       <meta name="googlebot" content="noarchive" />
       <meta name="robots" content="noarchive" />
       <meta property="og:locale" content="en_US" />
