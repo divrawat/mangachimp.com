@@ -18,7 +18,7 @@ export async function getServerSideProps({ res }) {
         categories: categories?.categories || [],
         latestmangas: latestmangas.mangas,
         latestmangachapters: latestmangachapters,
-        metatags: getmetatags?.data
+        metatags: getmetatags?.data || [],
       },
     };
   } catch (error) {
@@ -54,7 +54,7 @@ import React from 'react';
 import parse from 'html-react-parser';
 register();
 import { useRouter } from 'next/router';
-export const runtime = 'experimental-edge';
+// export const runtime = 'experimental-edge';
 
 
 export default function Home({ mangas, categories, latestmangas, latestmangachapters, metatags }) {
@@ -125,7 +125,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
       <title>{`${APP_NAME}: The Ultimate Destination For Reading Manga, Manhwa, Manhua, WebComic, Novels`}</title>
       <meta name="description" content={DESCRIPTION} />
       <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-      {metatags?.map((metaTag, index) => (
+      {metatags && metatags?.map((metaTag, index) => (
         <React.Fragment key={index}>
           {parseMetaTags(metaTag?.content)}
         </React.Fragment>
