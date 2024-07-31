@@ -125,11 +125,11 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
       <title>{`${APP_NAME}: The Ultimate Destination For Reading Manga, Manhwa, Manhua, WebComic, Novels`}</title>
       <meta name="description" content={DESCRIPTION} />
       <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-      {metatags?.map((metaTag, index) => (
+      {/* {metatags?.map((metaTag, index) => (
         <React.Fragment key={index}>
           {parseMetaTags(metaTag.content)}
         </React.Fragment>
-      ))}
+      ))} */}
       <meta name="googlebot" content="noarchive" />
       <meta name="robots" content="noarchive" />
       <meta property="og:locale" content="en_US" />
