@@ -54,7 +54,6 @@ import React from 'react';
 import parse from 'html-react-parser';
 register();
 import { useRouter } from 'next/router';
-export const runtime = 'experimental-edge';
 
 
 
