@@ -81,6 +81,8 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
         );
     }
 
+    const categoryNames = manga?.manga?.categories.map(category => category.name).join(', ');
+
     const schema = {
         "@context": "https://schema.org",
         "@graph": [
@@ -88,7 +90,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                 "@type": ["Person", "Organization"],
                 "@id": `${DOMAIN}/#person`,
                 "name": `${APP_NAME}`,
-                // "sameAs": ["https://twitter.com/ozulscans"],
+                "sameAs": ["https://x.com/divrawat2001"],
                 "logo": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,
@@ -155,6 +157,8 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                 "@id": `${DOMAIN}/${mangaurl}/#webpage`,
                 "url": `${DOMAIN}/${mangaurl}/#webpage`,
                 "name": `${manga?.manga?.name} ${manga?.manga?.type}: ${APP_NAME}`,
+                "datePublished": `${manga?.manga?.createdAt}`,
+                "dateModified": `${manga?.manga?.createdAt}`,
                 "isPartOf": {
                     "@id": `${DOMAIN}/#website`
                 },
@@ -179,7 +183,9 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
             {
                 "@type": "Article",
                 "headline": `Read ${manga?.manga?.name} ${manga?.manga?.type}: ${APP_NAME}`,
-                "articleSection": `${manga?.manga?.categories}`,
+                "datePublished": `${manga?.manga?.createdAt}`,
+                "dateModified": `${manga?.manga?.createdAt}`,
+                "articleSection": categoryNames,
                 "author": {
                     "@id": `${DOMAIN}/${mangaurl}/#author`
                 },

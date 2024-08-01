@@ -47,14 +47,13 @@ export default function Home({ latestmangachapters, metatags }) {
                 "@id": `${DOMAIN}/#organization`,
                 "name": `${APP_NAME}`,
                 "url": `${DOMAIN}`,
-                // "sameAs": [
-                //     "https://www.facebook.com/WebsiteManhwatop",
-                //     "https://www.instagram.com/manhwatop_official",
-                //     "https://www.linkedin.com/in/top-manhwa-711673205/",
-                //     "https://www.youtube.com/channel/UC6cpVPKJuqqxhFH_37rZ5gw",
-                //     "https://www.pinterest.com/ManhwaTopOfficial/",
-                //     "https://twitter.com/manhwatop"
-                // ],
+                "sameAs": [
+                    "https://www.facebook.com/divyanshu.rawat.5055/",
+                    "https://www.instagram.com/divrawat2001",
+                    "https://www.linkedin.com/in/divrawat2001/",
+                    "https://www.youtube.com/channel/UC6cpVPKJuqqxhFHdfg_37rZ5gw",
+                    "https://x.com/divrawat2001"
+                ],
                 "logo": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,

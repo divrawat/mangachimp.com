@@ -149,3 +149,17 @@ export const GetLatestMangas = async (page) => {
         return await response.json();
     } catch (err) { return console.log(err); }
 }
+
+
+
+export const getMangasSitemap = async () => {
+    try {
+        const response = await fetch(`${BACKEND_DOMAIN}/api/manga/get-manga-sitemap`, {
+            method: 'GET', headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+        return await response.json();
+    } catch (err) { return console.log(err); }
+}

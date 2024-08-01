@@ -69,7 +69,7 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
                 "@type": "Person",
                 "@id": `${DOMAIN}/#person`,
                 "name": `${APP_NAME}`,
-                // "sameAs": ["https://twitter.com/ozulscans"],
+                "sameAs": ["https://x.com/divrawat2001"],
                 "image": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,

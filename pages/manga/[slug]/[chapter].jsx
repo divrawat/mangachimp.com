@@ -98,6 +98,8 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
     const router = useRouter();
     const DESCRIPTION = `Read ${manga?.name} chapter ${chapterData?.chapterNumber} online. ${manga?.description}`;
 
+    // const categoryNames = manga?.categories.map(category => category.name).join(', ');
+
     const schema = {
         "@context": "https://schema.org",
         "@graph": [
@@ -105,7 +107,7 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                 "@type": ["Person", "Organization"],
                 "@id": `${DOMAIN}/#person`,
                 "name": `${APP_NAME}`,
-                // "sameAs": ["https://twitter.com/ozulscans"],
+                "sameAs": ["https://x.com/divrawat2001"],
                 "logo": {
                     "@type": "ImageObject",
                     "@id": `${DOMAIN}/#logo`,
@@ -172,6 +174,8 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                 "@id": `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}/#webpage`,
                 "url": `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`,
                 "name": `${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`,
+                "datePublished": `${chapterData?.createdAt}`,
+                "dateModified": `${chapterData?.createdAt}`,
                 "isPartOf": {
                     "@id": `${DOMAIN}/#website`
                 },
@@ -196,6 +200,8 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
             {
                 "@type": "BlogPosting",
                 "headline": `${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`,
+                "datePublished": `${chapterData?.createdAt}`,
+                "dateModified": `${chapterData?.createdAt}`,
                 "articleSection": `${manga?.slug}`,
                 "author": {
                     "@id": `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}/#author`
