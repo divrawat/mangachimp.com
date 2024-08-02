@@ -44,7 +44,7 @@ const ContactForm = () => {
                 <form autoComplete="off" onSubmit={handleSubmit} className="space-y-8">
                     <div>
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-white ">Your email</label>
-                        <input value={email} onChange={handleChange('email')} type="email" id="email" className="shadow-sm bg-[#051015] border border-gray-500 text-white text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 " placeholder="name@flowbite.com" required />
+                        <input value={email} onChange={handleChange('email')} type="email" id="email" className="shadow-sm bg-[#051015] border border-gray-500 text-white text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 " placeholder="name@gmail.com" required />
                     </div>
                     <div>
                         <label htmlFor="subject" className="block mb-2 text-sm font-medium text-white ">Subject</label>

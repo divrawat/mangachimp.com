@@ -166,7 +166,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
 
 
       <h1 className={`${roboto.className}  text-[white] tracking-wider font-extrabold text-2xl px-3 text-center my-10`}>
-        {`${APP_NAME}: Ultimate Destination For Reading Mangas`}
+        {`${APP_NAME}: The Ultimate Destination For Reading Mangas`}
       </h1>
 
 
@@ -190,7 +190,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
                     <h2 className={`${roboto.className} text-2xl font-bold text-center tracking-wider md:text-left`}>{manga?.fullname}</h2>
                   </Link>
 
-                  <p className="text-[15px] mt-5 md:pr-5 text-center md:text-left">{`Read ${manga?.fullname} ${manga?.type} online in English language. ${manga?.description}`}</p>
+                  <p className="text-[15px] mt-5 md:pr-5 text-center md:text-left leading-[1.7]">{`${manga?.description}`}</p>
 
 
                   <div className='max-w-[600px] mx-auto md:mx-0'>

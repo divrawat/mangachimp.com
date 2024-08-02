@@ -330,8 +330,8 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
 
                     <div className='mx-3  px-1 pb-5'>
                         <div className="flex justify-between max-w-[800px] items-center mx-auto md:pb-[50px] mt-5">
-                            {nextChapter !== null ? (
-                                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${nextChapter}`}>
+                            {prevChapter !== null ? (
+                                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${prevChapter}`}>
                                     <button className="text-[black] font-bold text-[13px] hover:scale-105 active:scale-95 transition-transform rounded bg-[white] px-2 py-1.5">
                                         <div className='flex items-center gap-2 justify-center'>
                                             <div className='pt-[1.5px]'><FaArrowAltCircleLeft /></div>
@@ -363,8 +363,8 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
 
 
 
-                            {prevChapter !== null ? (
-                                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${prevChapter}`}>
+                            {nextChapter !== null ? (
+                                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${nextChapter}`}>
                                     <button className="text-[black] text-[13px] hover:scale-105 active:scale-95 transition-transform rounded
                                  bg-[white] px-2 py-1.5 font-bold">
                                         <div className='flex items-center gap-2 justify-center'>
@@ -429,7 +429,7 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
 
                 <div className='max-w-[800px] mx-auto mt-10'>
                     {paragraphs?.map((paragraph, index) => (
-                        <p key={index} className=' py-6 tracking-wider leading-7 text-[15px]'>{paragraph}</p>
+                        <p key={index} className='text-white py-6 tracking-wider leading-7 text-[15px]'>{paragraph}</p>
                     ))}
                 </div>
 

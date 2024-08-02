@@ -7,7 +7,7 @@ export const BACKEND_DOMAIN = 'https://backend-mangawebsite.vercel.app'
 
 
 
-export const IMAGES_SUBDOMAIN = "https://images.onepiecemanga.in.net";
+export const IMAGES_SUBDOMAIN = "https://images.mangachimp.online";
 export const DISQUS_SHORTNAME = "my-cms-7";
 
 
@@ -25,6 +25,7 @@ export const FAVICON = `${IMAGES_SUBDOMAIN}/public/favicon.png`;
 export const navLinks = [
     { text: 'New Chapters', href: `${DOMAIN}/new-chapters` },
     { text: 'New Mangas', href: `${DOMAIN}/new-mangas` },
+    { text: 'Contact', href: `${DOMAIN}/contact` },
 ];
 
 export const FooterLinks = [

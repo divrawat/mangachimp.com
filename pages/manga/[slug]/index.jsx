@@ -333,9 +333,8 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                     <div className="mt-10 max-w-[1100px] mb-10 mx-auto px-5 flex flex-wrap justify-center">
                         {chapterArray?.map((chapternumber, index) => (
                             <div className="flex hover:scale-105 active:scale-95 transition-transform" key={index}>
-                                <Link prefetch={false} href={`${DOMAIN}/manga/${mangaurl}/chapter-${chapternumber}`} className="p-5 hover:underline text-white">
-                                    <p className="w-[200px] bg-[#091e25] text-center p-5 rounded shadow font-bold break-words border-l-4 
-                                ">
+                                <Link prefetch={false} href={`${DOMAIN}/manga/${mangaurl}/chapter-${chapternumber}`} className="sm:p-5 p-2 pb-5 hover:underline text-white">
+                                    <p className="sm:w-[200px] w-[120px] text-[12px] sm:text-[16px] bg-[#091e25] text-center sm:p-5 p-2 rounded shadow font-bold break-words border-l-4 ">
                                         {` Chapter ${chapternumber}`}
                                     </p>
                                 </Link>
@@ -361,7 +360,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                                         <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[180px] h-[200px] w-full object-cover" />
                                         <div className='px-3 py-3'>
-                                            <p className="sm:text-[13px] text-[9px] my-1 py-1  font-bold">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
+                                            <p className="sm:text-[13px] text-[10px] my-1 py-1  font-bold">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
                                             <p className={`${roboto2.className} sm:text-[15px] text-[11px] font-semibold mb-1 text-wrap break-words`}>{manga?.name}</p>
                                         </div>
                                     </Link>
@@ -374,7 +373,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
 
                     <div className='max-w-[800px] mx-auto mt-10 px-5 '>
                         {paragraphs?.map((paragraph, index) => (
-                            <p key={index} className=' py-6 tracking-wider leading-8 text-[15px]'>{paragraph}</p>
+                            <p key={index} className='text-white py-6 tracking-wider leading-8 text-[15px]'>{paragraph}</p>
                         ))}
                     </div>
 
