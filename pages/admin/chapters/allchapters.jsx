@@ -18,7 +18,6 @@ const AllBlogs = () => {
         author: '',
         slug: '',
         type: '',
-        photo: '',
         releaseDate: '',
         categories: [],
     });

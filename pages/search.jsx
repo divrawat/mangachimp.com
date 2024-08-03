@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { DOMAIN, APP_NAME } from "@/config";
+import { DOMAIN, APP_NAME, IMAGES_SUBDOMAIN } from "@/config";
 import { Rubik } from '@next/font/google';
 
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
@@ -43,7 +43,7 @@ const SearchedPage = () => {
                         mangas && mangas.length > 0 ? (
                             mangas.map((manga, index) => (
                                 <Link prefetch={false} key={index} href={`${DOMAIN}/manga/${manga?.slug}`} className="bg-[#091e25] overflow-hidden shadow rounded-b sm:w-[190px] w-[45%] flex flex-col hover:scale-110 transition-transform">
-                                    <img className='sm:w-[190px] sm:h-[220px] w-full object-cover h-[200px]' src={manga?.photo} alt={manga?.name} />
+                                    <img className='sm:w-[190px] sm:h-[220px] w-full object-cover h-[200px]' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.name} />
                                     <div className="px-4 py-5">
                                         <p className="sm:text-[12px] text-[9px] pb-1.5 font-bold">{`Total Chapters: ${manga?.totalChapters ?? 0}`}</p>
                                         <p className="sm:text-[14px] text-[11px] font-bold sm:w-[185px]">

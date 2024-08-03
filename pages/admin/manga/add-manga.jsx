@@ -16,7 +16,6 @@ const CreateManga = () => {
         author: '',
         slug: '',
         type: '',
-        photo: '',
         releaseDate: '',
         loading: false,
         createText: 'Submit',
@@ -26,7 +25,7 @@ const CreateManga = () => {
     const [checked, setChecked] = useState([]);
     const [categories, setCategories] = useState([]);
 
-    const { error, formData, loading, fullname, name, photo, slug, type, releaseDate, longdescription, createText, author, description } = values;
+    const { error, formData, loading, fullname, name, slug, type, releaseDate, longdescription, createText, author, description } = values;
     const token = getCookie('token');
 
 
@@ -107,7 +106,6 @@ const CreateManga = () => {
                     description: '',
                     slug: '',
                     error: '',
-                    photo: '',
                     success: '',
                     type: '',
                     releaseDate: '',
@@ -146,11 +144,6 @@ const CreateManga = () => {
 
                 <div className="block mb-4 text-sm font-medium text-white">Long Description</div>
                 <textarea required id="message" rows={10} autoComplete="off" value={longdescription} onChange={handleChange('longdescription')} className="block p-2.5 mb-10 w-full text-sm bg-gray-800 rounded-lg border border-gray-300 text-white"></textarea>
-
-
-                <div className="block mb-4 text-sm font-medium text-white">Photo Link</div>
-                <input type="text" id="mangaName" required autoComplete="off" value={photo} onChange={handleChange('photo')}
-                    className="bg-gray-800 border mb-10 border-gray-300 text-sm rounded-lg block w-full p-2.5 text-white" />
 
 
 

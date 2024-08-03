@@ -46,7 +46,7 @@ import { getCategories } from '@/actions/category';
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import Head from 'next/head';
 import Link from "next/link";
-import { DOMAIN, APP_NAME, APP_LOGO } from "@/config";
+import { DOMAIN, APP_NAME, APP_LOGO, IMAGES_SUBDOMAIN } from "@/config";
 const roboto = Rubik({ subsets: ['latin'], weight: '800', });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '400', });
 const roboto3 = Rubik({ subsets: ['latin'], weight: '600', });
@@ -181,7 +181,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
               <div className="md:flex gap-28 justify-center cursor-pointer">
                 <div className="flex justify-center md:block sm:pt-0 pt-3">
                   <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                    <img src={manga?.photo} alt={manga?.fullname} className="hover:scale-105 transition-transform sm:h-[420px] h-[300px]" />
+                    <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.fullname} className="hover:scale-105 transition-transform sm:h-[420px] h-[300px]" />
                   </Link>
                 </div>
 
@@ -226,7 +226,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
         <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
           {latestmangachapters?.map((manga, index) => (
             <div key={index} className="bg-[#091e25] overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
-              <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={manga?.photo} alt={manga?.manganame} /></Link>
+              <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.manganame} /></Link>
               <div className="px-4 py-5">
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                   <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold w-[115px] pb-3`}>{manga?.mangaName}</div>
@@ -294,7 +294,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
             <SwiperSlide key={index}>
               <div className="hover:scale-110 transition-transform rounded shadow sm:w-[190px] sm:h-[330px] h-[280px] w-[140px] bg-[#091e25]" >
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                  <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[190px] h-[160px] w-[140px] object-cover" />
+                  <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[190px] h-[160px] w-[140px] object-cover" />
                   <div className='sm:px-4 px-2 py-3 text-white'>
                     <p className='sm:text-[12px] font-bold text-[9px] pb-1.5'>{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
                     <p className={`${roboto3.className} font-bold sm:text-[13px] text-[11px] mb-1 text-wrap break-words`}>{manga?.name}</p>

@@ -20,7 +20,6 @@ const AllBlogs = () => {
         author: '',
         slug: '',
         type: '',
-        photo: '',
         releaseDate: '',
         categories: [],
     });
@@ -191,7 +190,6 @@ const AllBlogs = () => {
         formdata2.set('type', currentmanga?.type);
         formdata2.set('slug', currentmanga?.slug);
         formdata2.set('categories', checked.join(','));
-        formdata2.set('photo', currentmanga?.photo);
 
         updateManga(formdata2, token, id).then(data => {
             if (data?.error) {
@@ -329,9 +327,6 @@ const AllBlogs = () => {
                     <input type="text" required autoComplete="off" value={currentmanga?.type} onChange={handleCurrentMangaChange('type')}
                         className="bg-gray-800 border mb-10 border-gray-300 text-sm rounded-lg block w-full p-2.5 text-white" />
 
-                    <div className='font-bold text-gray-300 mb-2'>Photo Link</div>
-                    <input type="text" required autoComplete="off" value={currentmanga?.photo} onChange={handleCurrentMangaChange('photo')}
-                        className="bg-gray-800 border mb-10 border-gray-300 text-sm rounded-lg block w-full p-2.5 text-white" />
 
 
                     <div className='font-bold text-gray-300 mb-2'>Slug</div>

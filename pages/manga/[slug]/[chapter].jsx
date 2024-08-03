@@ -258,7 +258,7 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
             <meta name="twitter:description" content={DESCRIPTION} />
             <meta name="twitter:site" content="@mangachimp" />
             <meta name="twitter:creator" content="@mangachimp" />
-            <meta name="twitter:image" content={`${manga?.photo}`} />
+            <meta name="twitter:image" content={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} />
             <meta name="twitter:label1" content="Written by" />
             <meta name="twitter:data1" content={`${APP_NAME}`} />
             <meta name="twitter:label2" content="Time to read" />
@@ -413,7 +413,7 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                             {relatedMangas?.map((manga, index) => (
                                 <div className="hover:scale-110 transition-transform text-white rounded shadow sm:w-[200px] w-[45%] bg-[#051015]" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[230px] sm:w-[200px] w-full h-[200px] object-cover " />
+                                        <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[230px] sm:w-[200px] w-full h-[200px] object-cover " />
                                         <div className='sm:px-5 px-3 py-3'>
                                             <p className="sm:text-[11.5px] text-[9px] mb-1 font-bold">{` Total Chapters:  ${manga?.chapterCount}`}</p>
                                             <p className="sm:text-[13.5px] text-[11px] font-bold mb-1 text-wrap break-words">{manga?.name}</p>

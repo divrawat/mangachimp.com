@@ -43,7 +43,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Head from 'next/head';
 import { getmangachaptersRelated } from '@/actions/manga';
-import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO } from '@/config';
+import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO, IMAGES_SUBDOMAIN } from '@/config';
 import { getAllMetaTags } from '@/actions/metatags';
 import { FaHome } from "react-icons/fa";
 import { Rubik } from '@next/font/google';
@@ -123,9 +123,10 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                 "inLanguage": "en-US"
             },
             {
+                // {`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`}
                 "@type": "ImageObject",
-                "@id": `${manga?.manga?.photo}`,
-                "url": `${manga?.manga?.photo}`,
+                "@id": `${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`,
+                "url": `${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`,
                 "width": "1280",
                 "height": "1830",
                 "inLanguage": "en-US"
@@ -163,7 +164,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                     "@id": `${DOMAIN}/#website`
                 },
                 "primaryImageOfPage": {
-                    "@id": `${manga?.manga?.photo}`
+                    "@id": `${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`
                 },
                 "inLanguage": "en-US",
                 "breadcrumb": {
@@ -199,7 +200,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                     "@id": `${DOMAIN}/${mangaurl}/#webpage`
                 },
                 "image": {
-                    "@id": `${manga?.manga?.photo}`
+                    "@id": `${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`
                 },
                 "inLanguage": "en-US",
                 "mainEntityOfPage": {
@@ -236,15 +237,15 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
             <meta property="og:type" content="webiste" />
             <meta property="og:url" content={`${DOMAIN}/${mangaurl}`} />
             <meta property="og:site_name" content={`${APP_NAME}`} />
-            <meta property="og:image" content={`${manga?.manga?.photo}`} />
-            <meta property="og:image:secure_url" content={`${manga?.manga?.photo}`} />
+            <meta property="og:image" content={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} />
+            <meta property="og:image:secure_url" content={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} />
             <meta property="og:image:type" content="image/webp" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={`${manga?.manga?.name} ${manga?.manga?.type}: ${APP_NAME}`} />
             <meta name="twitter:description" content={DESCRIPTION} />
             <meta name="twitter:site" content="@mangachimp" />
             <meta name="twitter:creator" content="@mangachimp" />
-            <meta name="twitter:image" content={`${manga?.manga?.photo}`} />
+            <meta name="twitter:image" content={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} />
             <meta name="twitter:label1" content="Written by" />
             <meta name="twitter:data1" content={`${APP_NAME}`} />
             <meta name="twitter:label2" content="Time to read" />
@@ -276,7 +277,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                     <div className='px-3'>
                         <div className='max-w-[1000px] mx-auto mt-8 bg-[#091e25] rounded shadow px-3 text-white '>
                             <h1 className={`${roboto.className} text-center font-bold text-3xl pt-6 pb-5 `}>{`${manga?.manga?.fullname} ${manga?.manga?.type}`}</h1>
-                            <img className="mx-auto w-[200px]" src={`${manga?.manga?.photo}`} alt="Manga Cover" />
+                            <img className="mx-auto w-[200px]" src={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} alt="Manga Cover" />
                             <p className="my-5 leading-[2] md:px-6 px-2 text-center ">{manga?.manga?.description}</p>
 
                             <div className='max-w-[800px] mx-auto'>
@@ -358,7 +359,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                             {manga?.relatedMangas?.map((manga, index) => (
                                 <div className="hover:scale-110 transition-transform rounded shadow sm:w-[180px] w-[45%] bg-[#091e25] text-white" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={manga?.photo} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[180px] h-[200px] w-full object-cover" />
+                                        <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[180px] h-[200px] w-full object-cover" />
                                         <div className='px-3 py-3'>
                                             <p className="sm:text-[13px] text-[10px] my-1 py-1  font-bold">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
                                             <p className={`${roboto2.className} sm:text-[15px] text-[11px] font-semibold mb-1 text-wrap break-words`}>{manga?.name}</p>

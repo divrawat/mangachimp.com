@@ -25,7 +25,7 @@ export async function getServerSideProps({ query, res }) {
 
 import Head from 'next/head';
 import { singleCategory } from '@/actions/category';
-import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO } from '@/config';
+import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO, IMAGES_SUBDOMAIN } from '@/config';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getAllMetaTags } from '@/actions/metatags';
@@ -223,7 +223,7 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
                             {mangas?.map((manga, index) => (
                                 <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[45%] bg-[#091e25]" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={manga?.photo} alt={`${manga?.name} Cover`}
+                                        <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`}
                                             className="mb-2 sm:h-[200px] sm:w-[200px] w-full h-[200px] object-cover " />
                                         <div className='p-3'>
                                             <p className="sm:text-[12px] text-[10px] mb-1">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
