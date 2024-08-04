@@ -229,7 +229,8 @@ export default function Home({ mangas, categories, latestmangachapters, metatags
           <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
             {latestmangachapters?.map((manga, index) => (
               <div key={index} className=" overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
-                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.manganame} /></Link>
+                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
+                  <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.mangaName} /></Link>
                 <div className="px-2 py-5">
                   <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                     <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold pb-3`}>{manga?.mangaName}</div>

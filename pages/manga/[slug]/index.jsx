@@ -278,7 +278,7 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                     <div className='px-3'>
                         <div className='max-w-[1000px] mx-auto mt-8 bg-[#091e25] rounded shadow px-3 text-white '>
                             <h1 className={`${roboto.className} text-center font-bold text-2xl pt-6 pb-5 `}>{`${manga?.manga?.fullname} ${manga?.manga?.type}`}</h1>
-                            <img className="mx-auto w-[200px]" src={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} alt="Manga Cover" />
+                            <img className="mx-auto w-[200px]" src={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} alt={`${manga?.manga?.name} Cover`} />
                             <p className="my-5 leading-[2] md:px-6 px-2 text-center ">{manga?.manga?.description}</p>
 
                             <div className='max-w-[800px] mx-auto'>
