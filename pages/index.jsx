@@ -1,13 +1,15 @@
 export async function getServerSideProps({ res }) {
   try {
-    const page = 1;
-    const [data, categories, latestmangas, latestmangachapters, getmetatags] = await Promise.all([
-      getMangasHomePage(),
-      getCategories(),
-      GetLatestMangas(page),
-      getLatestMangaChapters(),
-      getAllMetaTags()
-    ]);
+    // const page = 1;
+    const [data, categories,
+      // latestmangas,
+      latestmangachapters, getmetatags] = await Promise.all([
+        getMangasHomePage(),
+        getCategories(),
+        // GetLatestMangas(page),
+        getLatestMangaChapters(),
+        getAllMetaTags()
+      ]);
 
     if (data.error) { return { props: { errorCode: 404 } }; }
     res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
@@ -16,7 +18,7 @@ export async function getServerSideProps({ res }) {
       props: {
         mangas: data?.data || [],
         categories: categories?.categories || [],
-        latestmangas: latestmangas.mangas,
+        // latestmangas: latestmangas.mangas,
         latestmangachapters: latestmangachapters,
         metatags: getmetatags?.data || [],
       },
@@ -56,7 +58,7 @@ import { Suspense } from 'react';
 export const runtime = 'experimental-edge';
 
 
-export default function Home({ mangas, categories, latestmangas, latestmangachapters, metatags }) {
+export default function Home({ mangas, categories, latestmangachapters, metatags }) {
 
 
   const router = useRouter();
@@ -260,7 +262,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
 
 
 
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Suspense fallback={<div>Loading...</div>}>
 
         <div className='max-w-[1200px] mx-auto pt-8 px-2'>
 
@@ -307,7 +309,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
           </Swiper>
         </div>
 
-      </Suspense>
+      </Suspense> */}
 
 
       <div className={`${roboto.className} text-2xl text-center mb-10 text-white font-bold tracking-wider mt-10`}>All Categories</div>
