@@ -65,6 +65,7 @@ const roboto = Rubik({ subsets: ['latin'], weight: '800', });
 import React from 'react';
 import parse from 'html-react-parser';
 import DisqusComments from '@/components/DisQus';
+import { Suspense } from "react";
 export const runtime = 'experimental-edge';
 
 
@@ -302,9 +303,9 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
             <Navbar />
             <main>
                 <article>
-                    <h1 className={`${roboto.className} text-white font-extrabold sm:text-3xl text-2xl text-center px-4 pt-5 mb-3`}>{`${manga?.name} Chapter ${chapterData?.chapterNumber}`}</h1>
+                    <h1 className={`${roboto.className} text-white font-extrabold sm:text-2xl text-2xl text-center px-4 pt-5 mb-3`}>{`${manga?.name} Chapter ${chapterData?.chapterNumber}`}</h1>
 
-                    <div className='flex justify-center flex-wrap items-center gap-2 text-[13px] mb-10 text-blue-300'>
+                    <div className='flex justify-center flex-wrap items-center gap-2 px-3 text-[13px] mb-10 text-blue-300'>
 
                         <div className='flex items-center gap-2'>
                             <div><FaHome /></div>
@@ -385,12 +386,13 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                         </div>
                     </div>
 
-
-                    {images?.map((imageSrc, index) => (
-                        <div className='allimages' key={index}>
-                            <img key={index} src={imageSrc} alt={`${manga?.name} Chapter ${chapterData?.chapterNumber} Image ${index + 1}`} />
-                        </div>
-                    ))}
+                    <Suspense fallback={<div>Loading...</div>}>
+                        {images?.map((imageSrc, index) => (
+                            <div className='allimages' key={index}>
+                                <img key={index} src={imageSrc} alt={`${manga?.name} Chapter ${chapterData?.chapterNumber} Image ${index + 1}`} />
+                            </div>
+                        ))}
+                    </Suspense>
 
 
 
@@ -404,34 +406,38 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                     </div>
 
 
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <div className="max-w-[1300px] mx-auto mt-10">
 
-                    <div className="max-w-[1300px] mx-auto mt-10">
+                            <h2 className={`${roboto.className} text-center text-white text-3xl font-bold pb-10`}>Related</h2>
 
-                        <h2 className={`${roboto.className} text-center text-white text-3xl font-bold pb-10`}>Related</h2>
-
-                        <div className="flex justify-center sm:gap-10 gap-3 flex-wrap pb-10 px-3">
-                            {relatedMangas?.map((manga, index) => (
-                                <div className="hover:scale-110 transition-transform text-white rounded shadow sm:w-[200px] w-[45%] bg-[#051015]" key={index}>
-                                    <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[230px] sm:w-[200px] w-full h-[200px] object-cover " />
-                                        <div className='sm:px-5 px-3 py-3'>
-                                            <p className="sm:text-[11.5px] text-[9px] mb-1 font-bold">{` Total Chapters:  ${manga?.chapterCount}`}</p>
-                                            <p className="sm:text-[13.5px] text-[11px] font-bold mb-1 text-wrap break-words">{manga?.name}</p>
-                                        </div>
-                                    </Link>
-                                </div>
-                            ))}
+                            <div className="flex justify-center sm:gap-10 gap-3 flex-wrap pb-10 px-3">
+                                {relatedMangas?.map((manga, index) => (
+                                    <div className="hover:scale-110 transition-transform text-white rounded shadow sm:w-[200px] w-[45%]" key={index}>
+                                        <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
+                                            <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[230px] sm:w-[200px] w-full h-[200px] object-cover " />
+                                            <div className='px-2 py-3'>
+                                                <p className="sm:text-[11.5px] text-[9px] mb-1 font-bold">{` Total Chapters:  ${manga?.chapterCount}`}</p>
+                                                <p className="sm:text-[13.5px] text-[11px] font-bold mb-1 text-wrap break-words">{manga?.name}</p>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    </Suspense>
 
 
                 </article>
 
-                <div className='max-w-[800px] mx-auto mt-10'>
-                    {paragraphs?.map((paragraph, index) => (
-                        <p key={index} className='text-white py-6 tracking-wider leading-7 text-[15px]'>{paragraph}</p>
-                    ))}
-                </div>
+
+                <Suspense fallback={<div>Loading...</div>}>
+                    <div className='max-w-[800px] mx-auto mt-10'>
+                        {paragraphs?.map((paragraph, index) => (
+                            <p key={index} className='text-white py-6 tracking-wider leading-7 text-[15px]'>{paragraph}</p>
+                        ))}
+                    </div>
+                </Suspense>
 
             </main>
             <Footer />

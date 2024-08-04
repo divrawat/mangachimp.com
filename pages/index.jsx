@@ -52,6 +52,7 @@ const roboto2 = Rubik({ subsets: ['latin'], weight: '400', });
 const roboto3 = Rubik({ subsets: ['latin'], weight: '600', });
 register();
 import { useRouter } from 'next/router';
+import { Suspense } from 'react';
 export const runtime = 'experimental-edge';
 
 
@@ -177,7 +178,7 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
 
         {mangas?.map((manga, index) => (
           <SwiperSlide key={index}>
-            <div className={`${roboto2.className} bg-[#091e25]  max-w-[1150px] shadow mx-auto md:h-[420px] rounded-lg overflow-hidden  text-white`}>
+            <div className={`${roboto2.className} bg-gradient-conic max-w-[1150px] shadow border border-gray-800 mx-auto md:h-[420px] rounded-lg overflow-hidden  text-white`}>
               <div className="md:flex gap-28 justify-center cursor-pointer">
                 <div className="flex justify-center md:block sm:pt-0 pt-3">
                   <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
@@ -220,104 +221,110 @@ export default function Home({ mangas, categories, latestmangas, latestmangachap
       </Swiper>
 
 
+      <Suspense fallback={<div>Loading...</div>}>
+        <h2 className={`${roboto.className} my-7 font-bold text-2xl tracking-wider text-white text-center px-3`}>Latest Chapters</h2>
+        <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-4 text-white">
+          <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
+            {latestmangachapters?.map((manga, index) => (
+              <div key={index} className=" overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
+                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.manganame} /></Link>
+                <div className="px-2 py-5">
+                  <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
+                    <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold pb-3`}>{manga?.mangaName}</div>
+                  </Link>
 
-      <h2 className={`${roboto.className} my-7 font-bold text-2xl tracking-wider text-white text-center px-3`}>Latest Chapters</h2>
-      <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-4 text-white">
-        <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
-          {latestmangachapters?.map((manga, index) => (
-            <div key={index} className="bg-[#091e25] overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
-              <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.manganame} /></Link>
-              <div className="px-4 py-5">
-                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                  <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold w-[115px] pb-3`}>{manga?.mangaName}</div>
-                </Link>
-
-                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.latestChapterNumber}`}>
-                  <div className='flex gap-2 items-center'>
-                    <div>
-                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015] break-words text-wrap">{`Chapter ${manga?.latestChapterNumber ?? 0}`}</p>
+                  <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.latestChapterNumber}`}>
+                    <div className='flex gap-2 items-center'>
+                      <div>
+                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015] break-words text-wrap">{`Chapter ${manga?.latestChapterNumber ?? 0}`}</p>
+                      </div>
+                      <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.latestChapterDate ?? 0}`}</p></div>
                     </div>
-                    <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.latestChapterDate ?? 0}`}</p></div>
-                  </div>
-                </Link>
+                  </Link>
 
 
-                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.secondlatestChapterNumber}`}>
-                  <div className='flex gap-2 items-center mt-3'>
-                    <div>
-                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015]">{`Chapter ${manga?.secondlatestChapterNumber ?? 0}`}</p>
+                  <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.secondlatestChapterNumber}`}>
+                    <div className='flex gap-2 items-center mt-3'>
+                      <div>
+                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015]">{`Chapter ${manga?.secondlatestChapterNumber ?? 0}`}</p>
+                      </div>
+                      <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.secondlatestChapterDate ?? 0}`}</p></div>
                     </div>
-                    <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.secondlatestChapterDate ?? 0}`}</p></div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               </div>
-            </div>
-          )).slice(0, 30)}
+            )).slice(0, 30)}
+          </div>
         </div>
-      </div>
+      </Suspense>
 
 
 
+      <Suspense fallback={<div>Loading...</div>}>
 
+        <div className='max-w-[1200px] mx-auto pt-8 px-2'>
 
+          <div className={`${roboto.className} text-2xl text-center px-3 text-white font-bold tracking-wider my-5`}>Newly Added Mangas</div>
+          <Swiper slidesPerView={1} spaceBetween={5} pagination={{ clickable: true }} modules={[Autoplay, Pagination]} className="mySwiper"
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            breakpoints={{
+              '@0.00': {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              '@0.75': {
+                slidesPerView: 2,
+                spaceBetween: 5,
+              },
+              '@1.00': {
+                slidesPerView: 3,
+                spaceBetween: 5,
+              },
+              '@1.50': {
+                slidesPerView: 4,
+                spaceBetween: 5,
+              },
+              '@2': {
+                slidesPerView: 5,
+                spaceBetween: 5,
+              },
+            }}
+          >
 
-      <div className='max-w-[1200px] mx-auto pt-8 px-2'>
+            {latestmangas?.map((manga, index) => (
+              <SwiperSlide key={index}>
+                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[190px] sm:h-[330px] h-[280px] w-[140px]" >
+                  <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
+                    <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[190px] h-[160px] w-[140px] object-cover" />
+                    <div className=' px-2 py-3 text-white'>
+                      <p className='sm:text-[12px] font-bold text-[9px] pb-1.5'>{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
+                      <p className={`${roboto3.className} font-bold sm:text-[13px] text-[11px] mb-1 text-wrap break-words`}>{manga?.name}</p>
+                    </div>
+                  </Link>
+                </div>
+              </SwiperSlide>
+            )).slice(0, 25)}
+          </Swiper>
+        </div>
 
-        <div className={`${roboto.className} text-2xl text-center px-3 text-white font-bold tracking-wider my-5`}>Newly Added Mangas</div>
-        <Swiper slidesPerView={1} spaceBetween={5} pagination={{ clickable: true }} modules={[Autoplay, Pagination]} className="mySwiper"
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          breakpoints={{
-            '@0.00': {
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-            '@0.75': {
-              slidesPerView: 2,
-              spaceBetween: 5,
-            },
-            '@1.00': {
-              slidesPerView: 3,
-              spaceBetween: 5,
-            },
-            '@1.50': {
-              slidesPerView: 4,
-              spaceBetween: 5,
-            },
-            '@2': {
-              slidesPerView: 5,
-              spaceBetween: 5,
-            },
-          }}
-        >
-
-          {latestmangas?.map((manga, index) => (
-            <SwiperSlide key={index}>
-              <div className="hover:scale-110 transition-transform rounded shadow sm:w-[190px] sm:h-[330px] h-[280px] w-[140px] bg-[#091e25]" >
-                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                  <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[190px] h-[160px] w-[140px] object-cover" />
-                  <div className='sm:px-4 px-2 py-3 text-white'>
-                    <p className='sm:text-[12px] font-bold text-[9px] pb-1.5'>{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
-                    <p className={`${roboto3.className} font-bold sm:text-[13px] text-[11px] mb-1 text-wrap break-words`}>{manga?.name}</p>
-                  </div>
-                </Link>
-              </div>
-            </SwiperSlide>
-          )).slice(0, 25)}
-        </Swiper>
-      </div>
+      </Suspense>
 
 
       <div className={`${roboto.className} text-2xl text-center mb-10 text-white font-bold tracking-wider mt-10`}>All Categories</div>
 
-      <div className='max-w-[1000px] mx-auto px-5'>
-        <div className='text-white flex gap-10 flex-wrap justify-center items-center'>
-          {categories?.map((category, index) => (
-            <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category.slug}?page=1`} className='bg-[#091e25] px-2.5 py-1.5 font-bold rounded  text-sm hover:scale-110 transition-transform'>
-              {category?.name}
-            </Link>
-          ))}
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className='max-w-[1000px] mx-auto px-5'>
+          <div className='text-white flex gap-10 flex-wrap justify-center items-center'>
+            {categories?.map((category, index) => (
+              <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category.slug}?page=1`} className='bg-[#091e25] px-2.5 py-1.5 font-bold rounded  text-sm hover:scale-110 transition-transform'>
+                {category?.name}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      </Suspense>
+
+
 
 
 

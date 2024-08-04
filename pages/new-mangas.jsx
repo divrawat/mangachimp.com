@@ -38,6 +38,7 @@ import React from 'react';
 import parse from 'html-react-parser';
 const roboto = Rubik({ subsets: ['latin'], weight: '600', });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '800', });
+import { Suspense } from 'react';
 export const runtime = 'experimental-edge';
 
 
@@ -214,25 +215,26 @@ const NewMangas = ({ latestmangas, errorCode, totalCount, metatags }) => {
 
                         <p className='text-center font-bold mb-8'>{`Page ${currentPage}`}</p>
 
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <div className="flex justify-center sm:gap-10 gap-3 flex-wrap">
+                                {latestmangas?.map((manga, index) => (
+                                    <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[45%] " key={index}>
+                                        <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
+                                            <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[220px] sm:w-[200px] w-full  object-cover h-[200px]" />
+                                            <div className='p-2'>
+                                                <p className="sm:text-[12px] font-bold text-[10px] mb-1.5">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
+                                                <p className={`${roboto.className} sm:text-[14px] text-[12px] mb-1 text-wrap break-words`}>{manga?.name}</p>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        </Suspense>
 
-                        <div className="flex justify-center sm:gap-10 gap-3 flex-wrap">
-                            {latestmangas?.map((manga, index) => (
-                                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[45%] bg-[#091e25]" key={index}>
-                                    <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                        <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[220px] sm:w-[200px] w-full  object-cover h-[200px]" />
-                                        <div className='p-3'>
-                                            <p className="sm:text-[12px] font-bold text-[10px] mb-1.5">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
-                                            <p className={`${roboto.className} sm:text-[14px] text-[12px] mb-1 text-wrap break-words`}>{manga?.name}</p>
-                                        </div>
-                                    </Link>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className='flex justify-center flex-wrap items-center my-10 mx-4 gap-5' id='pagination'>
+                        <div className='flex justify-center flex-wrap items-center my-10 mx-4' id='pagination'>
                             {pageNumbers?.map((pageNum, index) => (
-                                <Link prefetch={false} key={index} href={`${DOMAIN}/new-mangas?page=${currentPage}`}
-                                    className={`${roboto2.className} mx-2 px-4 py-2 rounded-lg ${currentPage === pageNum ? 'bg-[#0f2a33] text-white' : 'bg-[white] hover:bg-[#0f2a33] hover:text-white text-[black]'}`}
+                                <Link prefetch={false} key={index} href={`${DOMAIN}/new-mangas?page=${pageNum}`}
+                                    className={`${roboto2.className} mx-2 px-3 py-1.5 text-sm rounded-lg ${currentPage === pageNum ? 'bg-[#0f2a33] text-white' : 'bg-[white] hover:bg-[#0f2a33] hover:text-white text-[black]'}`}
                                     onClick={() => { if (typeof pageNum === 'number') { handlePageChange(pageNum); } }}>
                                     {pageNum}
                                 </Link>

@@ -153,3 +153,18 @@ export const getLatestMangaChapters = async () => {
         console.log(err);
     }
 }
+
+
+
+
+export const getChapterSitemap = async () => {
+    try {
+        const response = await fetch(`${BACKEND_DOMAIN}/api/chapters/get-chapter-sitemap`, {
+            method: 'GET', headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+        return await response.json();
+    } catch (err) { return console.log(err); }
+}

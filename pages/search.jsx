@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DOMAIN, APP_NAME, IMAGES_SUBDOMAIN } from "@/config";
 import { Rubik } from '@next/font/google';
+import Head from "next/head";
 
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
 
@@ -25,8 +26,18 @@ const SearchedPage = () => {
 
     useEffect(() => { if (manganame) { fetchMangas(); } }, [manganame]);
 
+
+    const head = () => {
+        <Head>
+            <meta name="robots" content="noindex" />
+        </Head>
+    }
+
+
+
     return (
         <>
+            {head()}
             <Navbar />
 
             <h1 className={`${roboto.className} text-2xl text-center text-white font-bold tracking-wider mt-5 mb-8`}>

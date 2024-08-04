@@ -21,7 +21,7 @@ export default function Navbar() {
                 <div className="flex items-center md:space-x-4 justify-between">
                     <div className="flex items-center py-1">
                         <div className="px-4"> <img src={APP_LOGO} alt={`${APP_NAME} logo`} height={80} width={80} className="rounded-full" /></div>
-                        <span className="uppercase text-lg tracking-wider text-[19px] font-extrabold md:text-[22px]"><Link prefetch={false} className={`${roboto.className}`} href="/">{NavbarName}</Link></span>
+                        <span className="uppercase text-lg tracking-wider text-[15px] font-extrabold md:text-[17px]"><Link prefetch={false} className={`${roboto.className}`} href="/">{NavbarName}</Link></span>
                     </div>
                     <div className="flex gap-5 items-center">
                         <span onClick={() => toggle(menuRef)} className="md:hidden text-[22px] cursor-pointer font-extrabold mr-4">☰</span>
@@ -32,7 +32,7 @@ export default function Navbar() {
                     <ul id="menu" ref={menuRef} className="md:flex md:space-x-10 md:pb-0 pb-4 items-center font-bold  text-center leading-[3] hidden">
                         {navLinks.map((link, index) => (
                             <li key={index}>
-                                <Link prefetch={false} href={link.href} className={`${roboto.className} hover:text-blue-300 pr-3 tracking-wider text-[17px] font-bold hover:underline uppercase`}>{link.text}</Link>
+                                <Link prefetch={false} href={link.href} className={`${roboto.className} hover:text-blue-300 pr-3 tracking-wider text-[13px] font-bold hover:underline uppercase`}>{link.text}</Link>
                             </li>
                         ))}
                     </ul>
