@@ -8,7 +8,7 @@ export async function getServerSideProps({ res }) {
         getCategories(),
         // GetLatestMangas(page),
         getLatestMangaChapters(),
-        getAllMetaTags()
+        // getAllMetaTags()
       ]);
 
     if (data.error) { return { props: { errorCode: 404 } }; }
@@ -20,7 +20,7 @@ export async function getServerSideProps({ res }) {
         categories: categories?.categories || [],
         // latestmangas: latestmangas.mangas,
         latestmangachapters: latestmangachapters,
-        metatags: getmetatags?.data || [],
+        // metatags: getmetatags?.data || [],
       },
     };
   } catch (error) {
@@ -57,7 +57,7 @@ import { useRouter } from 'next/router';
 export const runtime = 'experimental-edge';
 
 
-export default function Home({ mangas, categories, latestmangachapters, metatags }) {
+export default function Home({ mangas, categories, latestmangachapters }) {
 
 
   const router = useRouter();

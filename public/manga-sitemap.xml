@@ -1,6 +1,4 @@
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://mangachimp.online</loc>
 <priority>1.0</priority>
@@ -142,7 +140,24 @@
 <loc>https://mangachimp.online/manga/one-piece</loc>
 <lastmod>2024-08-04T16:31:18.335Z</lastmod>
 </url>
-
-
-
+<url>
+<loc>https://mangachimp.online/manga/mercenary-enrollment</loc>
+<lastmod>2024-08-05T08:47:01.545Z</lastmod>
+</url>
+<url>
+<loc>https://mangachimp.online/manga/death-is-the-only-ending-for-the-villainess</loc>
+<lastmod>2024-08-05T09:57:08.798Z</lastmod>
+</url>
+<url>
+<loc>https://mangachimp.online/manga/brothers-sick-love</loc>
+<lastmod>2024-08-05T18:17:49.255Z</lastmod>
+</url>
+<url>
+<loc>https://mangachimp.online/manga/rankers-return-remake</loc>
+<lastmod>2024-08-05T18:27:58.169Z</lastmod>
+</url>
+<url>
+<loc>https://mangachimp.online/manga/the-villainess-lives-twice</loc>
+<lastmod>2024-08-05T18:34:54.542Z</lastmod>
+</url>
 </urlset>

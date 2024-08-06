@@ -345,12 +345,12 @@ const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
                     </div>
 
 
-                    <div className='py-10 bg-[#051015] '>
+                    {/* <div className='py-10 bg-[#051015] '>
                         <h2 className='text-4xl text-center text-[white] font-blod px-4 mb-10'>Comment Section</h2>
                         <section className='max-w-[1000px] mx-auto px-5'>
                             <DisqusComments url={`/manga/${mangaurl}`} identifier={mangaurl} title={`${manga?.manga?.name} ${manga?.manga?.type}`} />
                         </section>
-                    </div>
+                    </div> */}
 
 
                     <div className="max-w-[1200px] mx-auto mt-10 px-3">
