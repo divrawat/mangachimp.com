@@ -28,7 +28,7 @@ export async function getServerSideProps({ params, res }) {
             props: {
                 manga: response?.manga,
                 chapterData: response?.chapterData,
-                relatedMangas: response?.relatedMangas,
+                // relatedMangas: response?.relatedMangas,
                 chapterArray: sortedChapterNumbers,
                 // metatags: metatags?.data
             }
@@ -70,7 +70,7 @@ export const runtime = 'experimental-edge';
 
 
 
-export default function Chapter({ errorcode, manga, chapterArray, relatedMangas, chapterData }) {
+export default function Chapter({ errorcode, manga, chapterArray, chapterData }) {
 
     if (errorcode) {
         const head = () => (<Head> <title>{`404 Page Not Found: ${APP_NAME}`}</title> </Head>);
@@ -425,7 +425,7 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                         </section>
                     </div> */}
 
-
+                    {/* 
                     <div className="max-w-[1300px] mx-auto mt-10">
 
                         <h2 className={`${roboto.className} text-center text-white text-3xl font-bold pb-10`}>Related</h2>
@@ -443,7 +443,7 @@ export default function Chapter({ errorcode, manga, chapterArray, relatedMangas,
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
 
 
                 </article>
