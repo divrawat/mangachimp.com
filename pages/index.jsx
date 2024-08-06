@@ -54,7 +54,6 @@ const roboto2 = Rubik({ subsets: ['latin'], weight: '400', });
 const roboto3 = Rubik({ subsets: ['latin'], weight: '600', });
 register();
 import { useRouter } from 'next/router';
-import { Suspense } from 'react';
 export const runtime = 'experimental-edge';
 
 
@@ -223,43 +222,43 @@ export default function Home({ mangas, categories, latestmangachapters, metatags
       </Swiper>
 
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <h2 className={`${roboto.className} my-7 font-bold text-2xl tracking-wider text-white text-center px-3`}>Latest Chapters</h2>
-        <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-4 text-white">
-          <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
-            {latestmangachapters?.map((manga, index) => (
-              <div key={index} className=" overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
+
+      <h2 className={`${roboto.className} my-7 font-bold text-2xl tracking-wider text-white text-center px-3`}>Latest Chapters</h2>
+      <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-4 text-white">
+        <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
+          {latestmangachapters?.map((manga, index) => (
+            <div key={index} className=" overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
+              <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
+                <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.mangaName} /></Link>
+              <div className="px-2 py-5">
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                  <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.mangaName} /></Link>
-                <div className="px-2 py-5">
-                  <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                    <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold pb-3`}>{manga?.mangaName}</div>
-                  </Link>
+                  <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold pb-3`}>{manga?.mangaName}</div>
+                </Link>
 
-                  <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.latestChapterNumber}`}>
-                    <div className='flex gap-2 items-center'>
-                      <div>
-                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015] break-words text-wrap">{`Chapter ${manga?.latestChapterNumber ?? 0}`}</p>
-                      </div>
-                      <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.latestChapterDate ?? 0}`}</p></div>
+                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.latestChapterNumber}`}>
+                  <div className='flex gap-2 items-center'>
+                    <div>
+                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015] break-words text-wrap">{`Chapter ${manga?.latestChapterNumber ?? 0}`}</p>
                     </div>
-                  </Link>
+                    <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.latestChapterDate ?? 0}`}</p></div>
+                  </div>
+                </Link>
 
 
-                  <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.secondlatestChapterNumber}`}>
-                    <div className='flex gap-2 items-center mt-3'>
-                      <div>
-                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015]">{`Chapter ${manga?.secondlatestChapterNumber ?? 0}`}</p>
-                      </div>
-                      <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.secondlatestChapterDate ?? 0}`}</p></div>
+                <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.secondlatestChapterNumber}`}>
+                  <div className='flex gap-2 items-center mt-3'>
+                    <div>
+                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015]">{`Chapter ${manga?.secondlatestChapterNumber ?? 0}`}</p>
                     </div>
-                  </Link>
-                </div>
+                    <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.secondlatestChapterDate ?? 0}`}</p></div>
+                  </div>
+                </Link>
               </div>
-            )).slice(0, 30)}
-          </div>
+            </div>
+          )).slice(0, 30)}
         </div>
-      </Suspense>
+      </div>
+
 
 
 
@@ -315,17 +314,17 @@ export default function Home({ mangas, categories, latestmangachapters, metatags
 
       <div className={`${roboto.className} text-2xl text-center mb-10 text-white font-bold tracking-wider mt-10`}>All Categories</div>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className='max-w-[1000px] mx-auto px-5'>
-          <div className='text-white flex gap-10 flex-wrap justify-center items-center'>
-            {categories?.map((category, index) => (
-              <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category.slug}?page=1`} className='bg-[#091e25] px-2.5 py-1.5 font-bold rounded  text-sm hover:scale-110 transition-transform'>
-                {category?.name}
-              </Link>
-            ))}
-          </div>
+
+      <div className='max-w-[1000px] mx-auto px-5'>
+        <div className='text-white flex gap-10 flex-wrap justify-center items-center'>
+          {categories?.map((category, index) => (
+            <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category.slug}?page=1`} className='bg-[#091e25] px-2.5 py-1.5 font-bold rounded  text-sm hover:scale-110 transition-transform'>
+              {category?.name}
+            </Link>
+          ))}
         </div>
-      </Suspense>
+      </div>
+
 
 
 

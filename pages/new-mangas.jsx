@@ -2,7 +2,7 @@ export async function getServerSideProps({ query, res }) {
     try {
         const { page } = query;
         const data = await GetLatestMangas(page);
-        const metatags = await getAllMetaTags();
+        // const metatags = await getAllMetaTags();
 
         res.setHeader(
             'Cache-Control',
@@ -13,7 +13,12 @@ export async function getServerSideProps({ query, res }) {
             return { props: { errorCode: 404 } };
         }
 
-        return { props: { latestmangas: data.mangas, totalCount: data.totalCount, metatags: metatags?.data } };
+        return {
+            props: {
+                latestmangas: data?.mangas, totalCount: data?.totalCount,
+                // metatags: metatags?.data
+            }
+        };
 
     } catch (error) {
         console.error(error);
@@ -28,7 +33,7 @@ import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, IMAGES_SUBDOMAIN } from '@/config';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
-import { getAllMetaTags } from '@/actions/metatags';
+// import { getAllMetaTags } from '@/actions/metatags';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaHome } from "react-icons/fa";
@@ -38,11 +43,11 @@ import React from 'react';
 import parse from 'html-react-parser';
 const roboto = Rubik({ subsets: ['latin'], weight: '600', });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '800', });
-import { Suspense } from 'react';
 export const runtime = 'experimental-edge';
 
 
-const NewMangas = ({ latestmangas, errorCode, totalCount, metatags }) => {
+const NewMangas = ({ latestmangas, errorCode, totalCount }) => {
+    const isLoading = !latestmangas;
 
     if (errorCode) {
         return (
@@ -194,28 +199,34 @@ const NewMangas = ({ latestmangas, errorCode, totalCount, metatags }) => {
             <Navbar />
             <main>
                 <article>
-                    <div className=' max-w-[1350px] mx-auto p-3 text-white'>
 
-                        <h1 className={`${roboto2.className}  text-3xl font-semibold mb-3 text-center uppercase`}>New Mangas</h1>
 
-                        <div className='flex text-[13px] flex-wrap justify-center items-center gap-2 mb-2 text-blue-300'>
 
-                            <div className='flex items-center gap-2'>
-                                <div><FaHome /></div>
-                                <div><Link prefetch={false} href={`${DOMAIN}`}>Home</Link></div>
+
+
+
+
+
+
+                    {isLoading ? (
+                        <div className="skeleton-loader">
+                            <div className="skeleton-text">LOADING ...........................</div>
+                        </div>
+                    ) : (
+                        <div className=' max-w-[1350px] mx-auto p-3 text-white'>
+                            <h1 className={`${roboto2.className}  text-3xl font-semibold mb-3 text-center uppercase`}>New Mangas</h1>
+                            <div className='flex text-[13px] flex-wrap justify-center items-center gap-2 mb-2 text-blue-300'>
+                                <div className='flex items-center gap-2'>
+                                    <div><FaHome /></div>
+                                    <div><Link prefetch={false} href={`${DOMAIN}`}>Home</Link></div>
+                                </div>
+                                <div>{`->`}</div>
+                                <div><Link prefetch={false} href={`${DOMAIN}/new-mangas?page=${currentPage}`}>New Mangas</Link></div>
                             </div>
 
-                            <div>{`->`}</div>
+                            <p className='text-center mb-3 font-bold'>{`Total Mangas - ${totalCount}`}</p>
+                            <p className='text-center font-bold mb-8'>{`Page ${currentPage}`}</p>
 
-                            <div><Link prefetch={false} href={`${DOMAIN}/new-mangas?page=${currentPage}`}>New Mangas</Link></div>
-                        </div>
-
-
-                        <p className='text-center mb-3 font-bold'>{`Total Mangas - ${totalCount}`}</p>
-
-                        <p className='text-center font-bold mb-8'>{`Page ${currentPage}`}</p>
-
-                        <Suspense fallback={<div>Loading...</div>}>
                             <div className="flex justify-center sm:gap-10 gap-3 flex-wrap">
                                 {latestmangas?.map((manga, index) => (
                                     <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[45%] " key={index}>
@@ -229,20 +240,24 @@ const NewMangas = ({ latestmangas, errorCode, totalCount, metatags }) => {
                                     </div>
                                 ))}
                             </div>
-                        </Suspense>
 
-                        <div className='flex justify-center flex-wrap items-center my-10 mx-4' id='pagination'>
-                            {pageNumbers?.map((pageNum, index) => (
-                                <Link prefetch={false} key={index} href={`${DOMAIN}/new-mangas?page=${pageNum}`}
-                                    className={`${roboto2.className} mx-2 px-3 py-1.5 text-sm rounded-lg ${currentPage === pageNum ? 'bg-[#0f2a33] text-white' : 'bg-[white] hover:bg-[#0f2a33] hover:text-white text-[black]'}`}
-                                    onClick={() => { if (typeof pageNum === 'number') { handlePageChange(pageNum); } }}>
-                                    {pageNum}
-                                </Link>
-                            ))}
+                            <div className='flex justify-center flex-wrap items-center my-10 mx-4' id='pagination'>
+                                {pageNumbers?.map((pageNum, index) => (
+                                    <Link prefetch={false} key={index} href={`${DOMAIN}/new-mangas?page=${pageNum}`}
+                                        className={`${roboto2.className} mx-2 px-3 py-1.5 text-sm rounded-lg ${currentPage === pageNum ? 'bg-[#0f2a33] text-white' : 'bg-[white] hover:bg-[#0f2a33] hover:text-white text-[black]'}`}
+                                        onClick={() => { if (typeof pageNum === 'number') { handlePageChange(pageNum); } }}>
+                                        {pageNum}
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
+                    )}
 
 
-                    </div>
+
+
+
+
 
                 </article>
             </main>
