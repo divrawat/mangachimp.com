@@ -152,7 +152,6 @@ export default function Home({ mangas, categories, latestmangachapters }) {
       <Navbar />
       <br />
 
-
       <form className="max-w-md mx-auto px-5" onSubmit={handleSubmit}>
         <label htmlFor='default-search' className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
         <div className="relative">
@@ -161,8 +160,8 @@ export default function Home({ mangas, categories, latestmangachapters }) {
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
           </div>
-          <input autoComplete='off' value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for a manga ..." type="search" id="default-search" className="bg-[#0e2834] block w-full p-4 ps-10 text-sm text-white border border-gray-500 rounded-lg focus:ring-blue-500 focus:border-blue-500" required />
-          <button type="submit" className="text-white absolute end-2.5 font-bold bottom-2.5 bg-[#051015] hover:scale-110 transition-transform focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2">Search</button>
+          <input autoComplete='off' value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search for a manga ..." type="search" id="default-search" className="bg-gray-900 block w-full p-4 ps-10 text-sm text-white border border-gray-500 rounded-lg focus:ring-blue-500 focus:border-blue-500" required />
+          <button type="submit" className="text-white absolute end-2.5 font-bold bottom-2.5 bg-gray-700 hover:scale-110 transition-transform focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2">Search</button>
         </div>
       </form>
 
@@ -198,7 +197,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
                   <div className='max-w-[600px] mx-auto md:mx-0'>
                     <div className="flex flex-wrap md:justify-start justify-center gap-4 mt-10 mb-5">
                       {manga?.categories?.map((category, index) => (
-                        <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category?.slug}?page=1`} className=" bg-[#051015] hover:scale-110 transition-transform active:scale-95 text-white px-2 py-1.5 rounded-md inline-block text-sm">
+                        <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category?.slug}?page=1`} className=" bg-gray-800 hover:scale-110 transition-transform active:scale-95 text-white px-2 py-1.5 rounded-md inline-block text-sm">
                           {category?.name}
                         </Link>
                       ))}
@@ -206,7 +205,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
                   </div>
 
                   <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`} className="flex justify-center md:block mb-5 mt-7">
-                    <div className="bg-[#051015] text-white px-3 py-2 w-[160px] rounded hover:scale-110 transition-transform active:scale-95 text-[15px]">
+                    <div className="bg-gray-800 text-white px-3 py-2 w-[160px] rounded hover:scale-110 transition-transform active:scale-95 text-[15px]">
 
                       <div className="flex gap-3 items-center">
                         <div className='font-bold tracking-wider text-[14px]'>Start Reading</div>
@@ -238,7 +237,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.latestChapterNumber}`}>
                   <div className='flex gap-2 items-center'>
                     <div>
-                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015] break-words text-wrap">{`Chapter ${manga?.latestChapterNumber ?? 0}`}</p>
+                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-gray-800 break-words text-wrap">{`Chapter ${manga?.latestChapterNumber ?? 0}`}</p>
                     </div>
                     <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.latestChapterDate ?? 0}`}</p></div>
                   </div>
@@ -248,7 +247,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.secondlatestChapterNumber}`}>
                   <div className='flex gap-2 items-center mt-3'>
                     <div>
-                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015]">{`Chapter ${manga?.secondlatestChapterNumber ?? 0}`}</p>
+                      <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-gray-800">{`Chapter ${manga?.secondlatestChapterNumber ?? 0}`}</p>
                     </div>
                     <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.secondlatestChapterDate ?? 0}`}</p></div>
                   </div>
@@ -318,7 +317,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
       <div className='max-w-[1000px] mx-auto px-5'>
         <div className='text-white flex gap-10 flex-wrap justify-center items-center'>
           {categories?.map((category, index) => (
-            <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category.slug}?page=1`} className='bg-[#091e25] px-2.5 py-1.5 font-bold rounded  text-sm hover:scale-110 transition-transform'>
+            <Link prefetch={false} key={index} href={`${DOMAIN}/categories/${category.slug}?page=1`} className='bg-gray-800 px-2.5 py-1.5 font-bold rounded  text-sm hover:scale-110 transition-transform'>
               {category?.name}
             </Link>
           ))}

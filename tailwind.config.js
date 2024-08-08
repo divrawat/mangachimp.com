@@ -8,7 +8,12 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
+      },
+      animation: {
+        'spin-slow': 'spin 10s linear infinite',
+        'spin-slower': 'spin 20s linear infinite',
       },
     },
   },

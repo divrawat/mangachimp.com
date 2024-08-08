@@ -184,7 +184,7 @@ export default function Home({ latestmangachapters, metatags }) {
                                             <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.latestChapterNumber}`}>
                                                 <div className='flex gap-2 items-center'>
                                                     <div>
-                                                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015]">{`Chapter ${manga?.latestChapterNumber}`}</p>
+                                                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-gray-800">{`Chapter ${manga?.latestChapterNumber}`}</p>
                                                     </div>
                                                     <div><p className='sm:text-[9px] text-[7px]'>{manga?.latestChapterDate}</p></div>
                                                 </div>
@@ -194,7 +194,7 @@ export default function Home({ latestmangachapters, metatags }) {
                                             <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.secondlatestChapterNumber}`}>
                                                 <div className='flex gap-2 items-center mt-3'>
                                                     <div>
-                                                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-[#051015]">{`Chapter ${manga?.secondlatestChapterNumber}`}</p>
+                                                        <p className="sm:text-[10px] text-[8px] font-semibold px-1.5 py-1 rounded bg-gray-800">{`Chapter ${manga?.secondlatestChapterNumber}`}</p>
                                                     </div>
                                                     <div><p className='sm:text-[9px] text-[7px]'>{manga?.secondlatestChapterDate}</p></div>
                                                 </div>
