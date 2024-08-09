@@ -9,7 +9,11 @@ const token = getCookie('token');
 const DeleteChapters = () => {
     const [manganame, setmanganame] = useState('');
 
-    const capitalizeWords = (str) => { return str.replace(/\b\w/g, (char) => char.toUpperCase()); };
+    // const capitalizeWords = (str) => { return str.replace(/\b\w/g, (char) => char.toUpperCase()); };
+
+    const capitalizeWords = (str) => {
+        return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    };
 
     const handleChange = (e) => {
         const formattedValue = capitalizeWords(e.target.value);

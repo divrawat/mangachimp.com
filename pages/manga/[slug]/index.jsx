@@ -2,7 +2,7 @@ export async function getServerSideProps({ params, res }) {
     try {
         // Fetch the manga chapters
         const response = await getmangachaptersRelated(params?.slug);
-        const metatags = await getAllMetaTags();
+        // const metatags = await getAllMetaTags();
         if (response?.error) {
             return { props: { errorcode: true } };
         }
@@ -27,8 +27,16 @@ export async function getServerSideProps({ params, res }) {
         // Set caching headers
         res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
 
+        // console.log(response);
+
+
         // Return props
-        return { props: { manga: response, chapterArray: reversedChapterNumbers, metatags: metatags?.data } };
+        return {
+            props: {
+                manga: response, chapterArray: reversedChapterNumbers,
+                // metatags: metatags?.data
+            }
+        };
     } catch (error) {
         console.error('Error fetching manga data:', error);
         return { props: { errorcode: true } };
@@ -44,12 +52,12 @@ import Footer from '@/components/Footer';
 import Head from 'next/head';
 import { getmangachaptersRelated } from '@/actions/manga';
 import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO, IMAGES_SUBDOMAIN } from '@/config';
-import { getAllMetaTags } from '@/actions/metatags';
+// import { getAllMetaTags } from '@/actions/metatags';
 import { FaHome } from "react-icons/fa";
 import { Rubik } from '@next/font/google';
 import { AiFillChrome } from "react-icons/ai";
-import dynamic from 'next/dynamic';
-const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
+// import dynamic from 'next/dynamic';
+// const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '600', });
 import React from 'react';
@@ -57,7 +65,7 @@ import parse from 'html-react-parser';
 export const runtime = 'experimental-edge';
 
 
-const MangaPage = ({ errorcode, manga, chapterArray, metatags }) => {
+const MangaPage = ({ errorcode, manga, chapterArray }) => {
 
     const mangaurl = manga?.manga?.slug;
 

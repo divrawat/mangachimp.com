@@ -14,6 +14,8 @@ export default function Document() {
         <link rel="icon" type="image/png" sizes="192x192" href={`${IMAGES_SUBDOMAIN}/public/android-chrome-192x192.png`} />
         <link rel="icon" type="image/png" sizes="512x512" href={`${IMAGES_SUBDOMAIN}/public/android-chrome-512x512.png`} />
 
+        <meta name="google-adsense-account" content="ca-pub-1721485376950080" />
+
       </Head>
       <body>
         <Main />
