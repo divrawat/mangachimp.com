@@ -71,8 +71,12 @@ const CreateManga = () => {
         );
     };
 
+    // const capitalizeWords = (str) => {
+    //     return str.replace(/\b\w/g, char => char.toUpperCase());
+    // };
+
     const capitalizeWords = (str) => {
-        return str.replace(/\b\w/g, char => char.toUpperCase());
+        return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     };
 
     const handleChange = (name) => (e) => {
