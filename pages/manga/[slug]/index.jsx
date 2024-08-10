@@ -305,19 +305,19 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
         </Head >
     );
 
-    /*
-        function splitTextIntoParagraphs(text, sentencesPerParagraph = 3) {
-            const sentences = text?.match(/[^\.!\?]+[\.!\?]+/g) || [];
-            const paragraphs = [];
-            for (let i = 0; i < sentences.length; i += sentencesPerParagraph) {
-                const paragraph = sentences.slice(i, i + sentencesPerParagraph).join(' ').trim();
-                paragraphs.push(paragraph);
-            }
-            return paragraphs;
+
+    function splitTextIntoParagraphs(text, sentencesPerParagraph = 3) {
+        const sentences = text?.match(/[^\.!\?]+[\.!\?]+/g) || [];
+        const paragraphs = [];
+        for (let i = 0; i < sentences.length; i += sentencesPerParagraph) {
+            const paragraph = sentences.slice(i, i + sentencesPerParagraph).join(' ').trim();
+            paragraphs.push(paragraph);
         }
-    
-        const paragraphs = splitTextIntoParagraphs(manga?.manga?.longdescription);
-        */
+        return paragraphs;
+    }
+
+    const paragraphs = splitTextIntoParagraphs(manga?.manga?.longdescription);
+
 
     const formatCreatedAt = (isoDateString) => {
         const date = new Date(isoDateString);
