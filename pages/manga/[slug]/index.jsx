@@ -1,3 +1,4 @@
+/*
 export async function getServerSideProps({ params, res }) {
     try {
         // Fetch the manga chapters
@@ -42,6 +43,46 @@ export async function getServerSideProps({ params, res }) {
         return { props: { errorcode: true } };
     }
 }
+*/
+
+export async function getServerSideProps({ params, res }) {
+    try {
+        // Fetch the manga chapters
+        const response = await getmangachaptersRelated(params?.slug);
+        if (response?.error) {
+            return { props: { errorcode: true } };
+        }
+
+        // Sort the chapters
+        const sortChapters = (chapters) => {
+            return chapters?.sort((a, b) => {
+                const parseChapter = (chapter) => {
+                    const match = chapter.chapterNumber.match(/(\d+)([a-z]*)/i);
+                    return [parseInt(match[1]), match[2] || ''];
+                };
+                const [numA, suffixA] = parseChapter(a);
+                const [numB, suffixB] = parseChapter(b);
+                return numA !== numB ? numA - numB : suffixA.localeCompare(suffixB);
+            });
+        };
+
+        const sortedChapters = sortChapters(response?.data);
+        const reversedChapters = sortedChapters.reverse();
+
+        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
+
+
+        return {
+            props: {
+                manga: response,
+                chapterArray: reversedChapters
+            }
+        };
+    } catch (error) {
+        console.error('Error fetching manga data:', error);
+        return { props: { errorcode: true } };
+    }
+}
 
 
 
@@ -60,6 +101,7 @@ import { AiFillChrome } from "react-icons/ai";
 // const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '600', });
+const roboto3 = Rubik({ subsets: ['latin'], weight: '300', });
 import React from 'react';
 import parse from 'html-react-parser';
 export const runtime = 'experimental-edge';
@@ -263,28 +305,40 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
         </Head >
     );
 
-
-    function splitTextIntoParagraphs(text, sentencesPerParagraph = 3) {
-        const sentences = text?.match(/[^\.!\?]+[\.!\?]+/g) || [];
-        const paragraphs = [];
-        for (let i = 0; i < sentences.length; i += sentencesPerParagraph) {
-            const paragraph = sentences.slice(i, i + sentencesPerParagraph).join(' ').trim();
-            paragraphs.push(paragraph);
+    /*
+        function splitTextIntoParagraphs(text, sentencesPerParagraph = 3) {
+            const sentences = text?.match(/[^\.!\?]+[\.!\?]+/g) || [];
+            const paragraphs = [];
+            for (let i = 0; i < sentences.length; i += sentencesPerParagraph) {
+                const paragraph = sentences.slice(i, i + sentencesPerParagraph).join(' ').trim();
+                paragraphs.push(paragraph);
+            }
+            return paragraphs;
         }
-        return paragraphs;
-    }
+    
+        const paragraphs = splitTextIntoParagraphs(manga?.manga?.longdescription);
+        */
 
-    const paragraphs = splitTextIntoParagraphs(manga?.manga?.longdescription);
+    const formatCreatedAt = (isoDateString) => {
+        const date = new Date(isoDateString);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        };
+        return date.toLocaleDateString('en-US', options);
+    };
+
 
     return (
         <>
             {head()}
             <Navbar />
             <main>
-                <article>
+                <article >
 
                     <div className='px-3'>
-                        <div className='max-w-[1000px] mx-auto mt-8 bg-[#091e25] rounded shadow px-3 text-white '>
+                        <div className='max-w-[1000px] mx-auto mt-8 bg-[black] rounded shadow px-3 text-white '>
                             <h1 className={`${roboto.className} text-center font-bold text-2xl pt-6 pb-5 `}>{`${manga?.manga?.fullname} ${manga?.manga?.type}`}</h1>
                             <img className="mx-auto w-[200px]" src={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} alt={`${manga?.manga?.name} Cover`} />
                             <p className="my-5 leading-[2] md:px-6 px-2 text-center ">{manga?.manga?.description}</p>
@@ -292,7 +346,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                             <div className='max-w-[800px] mx-auto'>
                                 <div className="flex flex-wrap justify-center gap-5 px-4">
                                     {manga?.manga?.categories?.map((category, index) => (
-                                        <Link prefetch={false} href={`${DOMAIN}/categories/${category?.slug}?page=1`} key={index} className="text-white text-[13px] bg-[#051015]  font-bold py-1.5 px-2 rounded hover:scale-110 active:scale-95 transition-transform">
+                                        <Link prefetch={false} href={`${DOMAIN}/categories/${category?.slug}?page=1`} key={index} className="text-white text-[13px] bg-gray-900  font-bold py-1.5 px-2 rounded hover:scale-110 active:scale-95 transition-transform">
                                             {category?.name}
                                         </Link>
                                     ))}
@@ -321,7 +375,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                     </div>
 
 
-                    <div className={`${roboto.className} text-3xl px-2 font-bold tracking-wider text-center md:mt-[100px] mt-10 mb-5 text-white`}>{`Read ${manga?.manga?.name} ${manga?.manga?.type}`}</div>
+                    <div className={`${roboto.className} text-2xl px-2 font-bold tracking-wider text-center md:mt-[100px] mt-10 mb-5 text-white`}>{`Read ${manga?.manga?.name} ${manga?.manga?.type}`}</div>
 
                     <div className='flex justify-center text-[13px] flex-wrap items-center gap-3 mb-10 text-blue-300'>
 
@@ -340,17 +394,20 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                     </div>
 
 
-                    <div className="mt-10 max-w-[1100px] mb-10 mx-auto px-5 flex flex-wrap justify-center">
-                        {chapterArray?.map((chapternumber, index) => (
-                            <div className="flex hover:scale-105 active:scale-95 transition-transform" key={index}>
-                                <Link prefetch={false} href={`${DOMAIN}/manga/${mangaurl}/chapter-${chapternumber}`} className="sm:p-5 p-2 pb-5 hover:underline text-white">
-                                    <p className="sm:w-[200px] w-[120px] text-[12px] sm:text-[16px] bg-[#091e25] text-center sm:p-5 p-2 rounded shadow font-bold break-words border-l-4 ">
-                                        {` Chapter ${chapternumber}`}
-                                    </p>
-                                </Link>
-                            </div>
-                        ))}
+                    <div className='mx-6'>
+                        <div className={`${roboto3.className} mt-10 py-3 border border-[#474747] bg-[black] rounded max-w-[900px] mb-10 mx-auto px-3 flex flex-wrap justify-center max-h-[400px] overflow-y-scroll sm:gap-5 gap-3`}>
+
+                            {chapterArray?.map((chapternumber, index) => (
+                                <div className="flex hover:scale-105 active:scale-95 transition-transform my-1" key={index}>
+                                    <Link prefetch={false} href={`${DOMAIN}/manga/${mangaurl}/chapter-${chapternumber?.chapterNumber}`} className="sm:p-5 p-2  hover:underline text-white bg-gray-900 rounded sm:w-[180px] w-[100px]">
+                                        <p className="sm:text-[14px] text-[12px] tracking-wider font-semibold">{`Chapter  ${chapternumber?.chapterNumber}`}</p>
+                                        <p className="sm:text-[11px] text-[10px] font-normal pt-1.5">{formatCreatedAt(chapternumber?.createdAt)}</p>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+
 
 
                     {/* <div className='py-10 bg-[#051015] '>
@@ -365,11 +422,11 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                         <h2 className={`${roboto.className} text-center text-3xl font-bold pb-10 text-white`}>Related</h2>
                         <div className="flex justify-center sm:gap-10 gap-3 flex-wrap pb-10">
                             {manga?.relatedMangas?.map((manga, index) => (
-                                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[190px] w-[45%] text-white" key={index}>
+                                <div className="bg-[black] hover:scale-110 transition-transform rounded shadow sm:w-[190px] w-[45%] text-white" key={index}>
                                     <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                                         <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`} className="mb-2 sm:h-[200px] sm:w-[190px] h-[200px] w-full object-cover" />
-                                        <div className='px-2 py-3'>
-                                            <p className="sm:text-[11px] text-[10px] my-1 py-1  font-bold">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
+                                        <div className='p-3'>
+                                            <p className="sm:text-[11px] text-[10px] my-1 py-1  font-semibold">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
                                             <p className={`${roboto2.className} sm:text-[14px] text-[10px] font-semibold mb-1 text-wrap break-words`}>{manga?.name}</p>
                                         </div>
                                     </Link>

@@ -178,7 +178,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
 
         {mangas?.map((manga, index) => (
           <SwiperSlide key={index}>
-            <div className={`${roboto2.className} bg-gradient-conic max-w-[1150px] shadow border border-gray-800 mx-auto md:h-[420px] rounded-lg overflow-hidden  text-white`}>
+            <div className={`${roboto2.className} bg-[black] max-w-[1150px] shadow mx-auto md:h-[420px] rounded-lg overflow-hidden  text-white`}>
               <div className="md:flex gap-28 justify-center cursor-pointer">
                 <div className="flex justify-center md:block sm:pt-0 pt-3">
                   <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
@@ -226,10 +226,10 @@ export default function Home({ mangas, categories, latestmangachapters }) {
       <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-4 text-white">
         <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
           {latestmangachapters?.map((manga, index) => (
-            <div key={index} className=" overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
+            <div key={index} className="bg-[black] overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
               <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                 <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.mangaName} /></Link>
-              <div className="px-2 py-5">
+              <div className="px-3 py-5">
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                   <div className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold pb-3`}>{manga?.mangaName}</div>
                 </Link>

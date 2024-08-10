@@ -174,11 +174,11 @@ export default function Home({ latestmangachapters, metatags }) {
                         <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-4 text-white">
                             <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
                                 {latestmangachapters?.map((manga, index) => (
-                                    <div key={index} className="overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
+                                    <div key={index} className="bg-[black] overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col">
                                         <Link href={`${DOMAIN}/manga/${manga?.slug}`}> <img className='sm:w-[210px] sm:h-[250px] object-cover w-full h-[200px]' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.manganame} /></Link>
-                                        <div className="px-2 py-5">
+                                        <div className="px-3 py-5">
                                             <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                                <p className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold sm:w-[200px] pb-3`}>{manga?.mangaName}</p>
+                                                <p className={`${roboto3.className} sm:text-[15px] text-[12px] font-bold sm:w-[190px] pb-3`}>{manga?.mangaName}</p>
                                             </Link>
 
                                             <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.latestChapterNumber}`}>
