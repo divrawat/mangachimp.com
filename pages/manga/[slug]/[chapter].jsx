@@ -95,7 +95,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
     useEffect(() => { setChaptersArray(chapterArray); }, [manga?.slug]);
 
     const router = useRouter();
-    const DESCRIPTION = `Read ${manga?.name} chapter ${chapterData?.chapterNumber} online. ${manga?.description}`;
+    const DESCRIPTION = `Read ${manga?.name} chapter ${chapterData?.chapterNumber} online only on ${APP_NAME}.`;
 
 
     const schema = {
@@ -274,25 +274,6 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
     for (let i = 1; i <= chapterData?.numImages; i++) { images.push(`${IMAGES_SUBDOMAIN}/${manga?.slug}/chapter-${chapterData?.chapterNumber}/${i}.webp`); }
 
 
-    /*
-    function splitTextIntoParagraphs(text, sentencesPerParagraph = 3) {
-        const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [];
-        const paragraphs = [];
-        for (let i = 0; i < sentences.length; i += sentencesPerParagraph) {
-            const paragraph = sentences.slice(i, i + sentencesPerParagraph).join(' ').trim();
-            paragraphs.push(paragraph);
-        }
-        return paragraphs;
-    }
-
-    const paragraphs = splitTextIntoParagraphs(manga?.longdescription);
-*/
-
-
-
-
-
-
 
     const currentChapterUrl = `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`;
 
@@ -313,9 +294,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
     };
 
 
-
-
-
+    const TEXT = `Read the latest ${manga?.type} <b>${manga?.name} Chapter ${chapterData?.chapterNumber}</b> at ${APP_NAME}. We always update <b>${manga?.name} ${manga?.type}</b> chapters very quickly. Explore other ${manga?.type}s at <b>${APP_NAME}</b>.`;
 
     return (
         <>
@@ -414,10 +393,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
                         </div>
                     ))}
 
-
-
-
-
+                    <p className="max-w-[1000px] mx-auto p-4 text-white text-center" dangerouslySetInnerHTML={{ __html: TEXT }} />
 
                     <div className='py-10 bg-gray-900'>
                         <h2 className='text-4xl text-center text-[white] font-blod px-4 mb-10'>Comment Section</h2>
@@ -446,14 +422,6 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
 
 
                 </article>
-
-
-
-                {/* <div className='max-w-[800px] mx-auto mt-10'>
-                    {paragraphs?.map((paragraph, index) => (
-                        <p key={index} className='text-white py-6 tracking-wider leading-7 text-[15px]'>{paragraph}</p>
-                    ))}
-                </div> */}
 
             </main>
             <Footer />

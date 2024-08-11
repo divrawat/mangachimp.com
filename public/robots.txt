@@ -4,3 +4,4 @@ Disallow: /admin/
 Sitemap: https://mangachimp.online/manga-sitemap.xml
 Sitemap: https://mangachimp.online/chapter-sitemap.xml
 Sitemap: https://mangachimp.online/chapter-sitemap2.xml
+Sitemap: https://mangachimp.online/chapter-sitemap3.xml
