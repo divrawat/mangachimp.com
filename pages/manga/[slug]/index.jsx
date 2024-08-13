@@ -334,6 +334,8 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
         <>
             {head()}
             <Navbar />
+
+
             <main>
                 <article >
 
