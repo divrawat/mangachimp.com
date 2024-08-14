@@ -420,7 +420,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                     </div> */}
 
 
-                    <div className="max-w-[1200px] mx-auto mt-10 px-3">
+                    {/* <div className="max-w-[1200px] mx-auto mt-10 px-3">
                         <h2 className={`${roboto.className} text-center text-3xl font-bold pb-10 text-white`}>Related</h2>
                         <div className="flex justify-center sm:gap-10 gap-3 flex-wrap pb-10">
                             {manga?.relatedMangas?.map((manga, index) => (
@@ -435,16 +435,16 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
 
 
 
 
-                    <div className='max-w-[800px] mx-auto mt-10 px-5 '>
+                    {/* <div className='max-w-[800px] mx-auto mt-10 px-5 '>
                         {paragraphs?.map((paragraph, index) => (
                             <p key={index} className='text-white py-6 tracking-wider leading-8 text-[15px]'>{paragraph}</p>
                         ))}
-                    </div>
+                    </div> */}
 
 
 

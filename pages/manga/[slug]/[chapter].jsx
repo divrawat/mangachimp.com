@@ -395,12 +395,12 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
 
                     <p className="max-w-[1000px] mx-auto p-4 text-white text-center" dangerouslySetInnerHTML={{ __html: TEXT }} />
 
-                    <div className='py-10 bg-gray-900'>
+                    {/* <div className='py-10 bg-gray-900'>
                         <h2 className='text-4xl text-center text-[white] font-blod px-4 mb-10'>Comment Section</h2>
                         <section className='max-w-[1000px] mx-auto px-5'>
                             <DisqusComments url={`/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`} identifier={`${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`} title={`${manga?.name} Chapter ${chapterData?.chapterNumber}`} />
                         </section>
-                    </div>
+                    </div> */}
 
 
                     {/* <div className="max-w-[1300px] mx-auto mt-10">
