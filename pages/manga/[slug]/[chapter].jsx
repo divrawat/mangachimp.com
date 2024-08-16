@@ -61,7 +61,17 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { AiFillChrome } from "react-icons/ai";
+
+
+import { FaTelegram } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { IoLogoWhatsapp } from "react-icons/io";
+import { FaRedditAlien } from "react-icons/fa";
+
+
 const roboto = Rubik({ subsets: ['latin'], weight: '800', });
+const roboto2 = Rubik({ subsets: ['latin'], weight: '500', });
 import React from 'react';
 import parse from 'html-react-parser';
 import dynamic from 'next/dynamic';
@@ -95,7 +105,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
     useEffect(() => { setChaptersArray(chapterArray); }, [manga?.slug]);
 
     const router = useRouter();
-    const DESCRIPTION = `Read ${manga?.name} chapter ${chapterData?.chapterNumber} online only on ${APP_NAME}.`;
+    const DESCRIPTION = `Read ${manga?.name} chapter ${chapterData?.chapterNumber} online. ${manga?.name} ${manga?.type} chapters are always updated at ${APP_NAME}.`;
 
 
     const schema = {
@@ -294,7 +304,17 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
     };
 
 
-    const TEXT = `Read the latest ${manga?.type} <b>${manga?.name} Chapter ${chapterData?.chapterNumber}</b> at ${APP_NAME}. We always update <b>${manga?.name} ${manga?.type}</b> chapters very quickly. Explore other ${manga?.type}s at <b>${APP_NAME}</b>.`;
+    const TEXT = `Read the latest ${manga?.type.toLowerCase()} <b>${manga?.name} chapter ${chapterData?.chapterNumber}</b> at ${APP_NAME}. We always update <b>${manga?.name} ${manga?.type.toLowerCase()}</b> chapters very quickly. Please share and explore other ${manga?.type.toLowerCase()}s at <b>${APP_NAME}</b>.`;
+
+    const postUrl = `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`;
+    const encodedTitle = manga?.name;
+    const encodedUrl = postUrl;
+
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedTitle} ${encodedUrl}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+    const telegramUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
+    const redditUrl = `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`;
 
     return (
         <>
@@ -304,7 +324,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
                 <article>
                     <h1 className={`${roboto.className} text-white font-extrabold sm:text-2xl text-2xl text-center px-4 pt-5 mb-3`}>{`${manga?.name} Chapter ${chapterData?.chapterNumber}`}</h1>
 
-                    <div className='flex justify-center flex-wrap items-center gap-2 px-3 text-[13px] mb-10 text-blue-300'>
+                    <div className='flex justify-center flex-wrap items-center gap-2 px-3 text-[13px] mb-6 text-blue-300'>
 
                         <div className='flex items-center gap-2'>
                             <div><FaHome /></div>
@@ -327,6 +347,43 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
 
                     </div>
 
+
+                    <div className="flex gap-4 flex-wrap px-5 text-white justify-center mb-3">
+
+
+                        <a href={facebookUrl} className="flex gap-1 items-center bg-blue-600 rounded-md px-2 py-1">
+                            <span><FaFacebook /></span>
+                            <span className={`${roboto2.className} text-[12px]`}>FaceBook</span>
+                        </a>
+
+                        <a href={twitterUrl} className="flex gap-1 items-center bg-blue-500 rounded-md px-2 py-1">
+                            <span><FaTwitter /></span>
+                            <span className={`${roboto2.className} text-[12px]`}>Twitter</span>
+                        </a>
+
+                        <a href={whatsappUrl} className="flex gap-1 items-center bg-green-500 rounded-md px-2 py-1">
+                            <span><IoLogoWhatsapp /></span>
+                            <span className={`${roboto2.className} text-[12px]`}>WhatsApp</span>
+                        </a>
+
+                        <a href={telegramUrl} className="flex gap-1 items-center bg-blue-600 rounded-md px-2 py-1">
+                            <span><FaTelegram /></span>
+                            <span className={`${roboto2.className} text-[12px]`}>Telegram</span>
+                        </a>
+
+                        <a href={redditUrl} className="flex gap-1 items-center bg-orange-500 rounded-md px-2 py-1">
+                            <span className="pb-[3px]"><FaRedditAlien /></span>
+                            <span className={`${roboto2.className} text-[12px]`}>Reddit</span>
+                        </a>
+
+                    </div>
+
+
+
+
+                    <div>
+                        <p style={{ wordSpacing: "2px" }} className={`${roboto2.className} tracking-wider rounded-md  max-w-[1000px] mx-auto px-3 py-5 mb-4 text-[13.5px] text-white text-center`} dangerouslySetInnerHTML={{ __html: TEXT }} />
+                    </div>
 
                     <div className='mx-3  px-1 pb-5'>
                         <div className="flex justify-between max-w-[800px] items-center mx-auto md:pb-[50px] mt-5">
@@ -387,13 +444,16 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
                     </div>
 
 
+
+
+
                     {images?.map((imageSrc, index) => (
                         <div className='allimages' key={index}>
                             <img key={index} src={imageSrc} alt={`${manga?.name} Chapter ${chapterData?.chapterNumber} Image ${index + 1}`} />
                         </div>
                     ))}
 
-                    <p className="max-w-[1000px] mx-auto p-4 text-white text-center" dangerouslySetInnerHTML={{ __html: TEXT }} />
+
 
                     {/* <div className='py-10 bg-gray-900'>
                         <h2 className='text-4xl text-center text-[white] font-blod px-4 mb-10'>Comment Section</h2>
