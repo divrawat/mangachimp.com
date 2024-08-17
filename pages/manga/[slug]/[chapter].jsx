@@ -244,7 +244,9 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
         <Head>
             <title>{`${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`}</title>
             <meta name="description" content={DESCRIPTION} />
-            <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+            {/* <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" /> */}
+            <meta name="robots" content="noindex, nofollow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+
             {/* {metatags?.map((metaTag, index) => (
                 <React.Fragment key={index}>
                     {parseMetaTags(metaTag.content)}
