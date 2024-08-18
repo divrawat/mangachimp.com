@@ -1,19 +1,15 @@
 
-export const DOMAIN = '/';
+// export const DOMAIN = '/';
 // export const BACKEND_DOMAIN = 'http://localhost:8000';
 
-// export const DOMAIN = 'https://mangachimp.com';
+export const DOMAIN = 'https://mangachimp.com';
 export const BACKEND_DOMAIN = 'https://backend-mangawebsite.vercel.app'
 
 
 
 export const DOMAIN_NAME = 'mangachimp.com';
-export const IMAGES_SUBDOMAIN = "https://images.mangachimp.online";
+export const IMAGES_SUBDOMAIN = "https://images.mangachimp.com";
 export const DISQUS_SHORTNAME = "my-cms-7";
-
-
-
-export const APP_DESCRIPTION = `Read manhwa or manga all chapters online.`;
 
 
 export const APP_NAME = 'Manga Chimp';
