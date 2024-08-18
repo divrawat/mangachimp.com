@@ -50,7 +50,7 @@ export async function getServerSideProps({ params, res }) {
 import { getParticularMangachapterwithRelated } from "@/actions/chapter";
 import Head from "next/head";
 import Link from "next/link";
-import { APP_NAME, DOMAIN, IMAGES_SUBDOMAIN, NOT_FOUND_IMAGE, APP_LOGO } from "@/config";
+import { APP_NAME, DOMAIN, IMAGES_SUBDOMAIN, NOT_FOUND_IMAGE, APP_LOGO, DOMAIN_NAME } from "@/config";
 // import { getAllMetaTags } from '@/actions/metatags';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -75,7 +75,7 @@ const roboto2 = Rubik({ subsets: ['latin'], weight: '500', });
 import React from 'react';
 import parse from 'html-react-parser';
 import dynamic from 'next/dynamic';
-const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
+// const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
 export const runtime = 'experimental-edge';
 
 
@@ -105,7 +105,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
     useEffect(() => { setChaptersArray(chapterArray); }, [manga?.slug]);
 
     const router = useRouter();
-    const DESCRIPTION = `Read ${manga?.name} chapter ${chapterData?.chapterNumber} online. ${manga?.name} ${manga?.type} chapters are always updated at ${APP_NAME}.`;
+    const DESCRIPTION = `Read ${manga?.name} chapter ${chapterData?.chapterNumber} online. ${manga?.name} ${manga?.type} chapters are always updated at ${APP_NAME}. Please share and explore other ${manga?.type}s at ${DOMAIN_NAME}.`;
 
 
     const schema = {
@@ -181,7 +181,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
                 "@type": "WebPage",
                 "@id": `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}/#webpage`,
                 "url": `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`,
-                "name": `${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`,
+                "name": `${manga?.name} Chapter ${chapterData?.chapterNumber}`,
                 "datePublished": `${chapterData?.createdAt}`,
                 "dateModified": `${chapterData?.createdAt}`,
                 "isPartOf": {
@@ -207,7 +207,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
             },
             {
                 "@type": "BlogPosting",
-                "headline": `${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`,
+                "headline": `${manga?.name} Chapter ${chapterData?.chapterNumber}`,
                 "datePublished": `${chapterData?.createdAt}`,
                 "dateModified": `${chapterData?.createdAt}`,
                 "articleSection": `${manga?.slug}`,
@@ -218,7 +218,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
                     "@id": `${DOMAIN}/#person`
                 },
                 "description": `${DESCRIPTION}`,
-                "name": `${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`,
+                "name": `${manga?.name} Chapter ${chapterData?.chapterNumber}`,
                 "@id": `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}/#richSnippet`,
                 "isPartOf": {
                     "@id": `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}/#webpage`
@@ -242,10 +242,9 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
 
     const head = () => (
         <Head>
-            <title>{`${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`}</title>
+            <title>{`${manga?.name} Chapter ${chapterData?.chapterNumber}`}</title>
             <meta name="description" content={DESCRIPTION} />
-            {/* <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" /> */}
-            <meta name="robots" content="noindex, nofollow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+            <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
 
             {/* {metatags?.map((metaTag, index) => (
                 <React.Fragment key={index}>
@@ -264,7 +263,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
             <meta property="og:image:secure_url" content={`${IMAGES_SUBDOMAIN}/${manga?.slug}/chapter-${chapterData?.chapterNumber}/1.webp`} />
             <meta property="og:image:type" content="image/webp" />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={`${manga?.name} Chapter ${chapterData?.chapterNumber}: ${APP_NAME}`} />
+            <meta name="twitter:title" content={`${manga?.name} Chapter ${chapterData?.chapterNumber}`} />
             <meta name="twitter:description" content={DESCRIPTION} />
             <meta name="twitter:site" content="@mangachimp" />
             <meta name="twitter:creator" content="@mangachimp" />
@@ -306,7 +305,7 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
     };
 
 
-    const TEXT = `Read the latest ${manga?.type.toLowerCase()} <b>${manga?.name} chapter ${chapterData?.chapterNumber}</b> at ${APP_NAME}. We always update <b>${manga?.name} ${manga?.type.toLowerCase()}</b> chapters very quickly. Please share and explore other ${manga?.type.toLowerCase()}s at <b>${APP_NAME}</b>.`;
+    const TEXT = `Read the latest ${manga?.type.toLowerCase()} <b>${manga?.name} chapter ${chapterData?.chapterNumber}</b> at ${APP_NAME}. We always update <b>${manga?.name} ${manga?.type.toLowerCase()}</b> chapters very quickly. Please share and explore other ${manga?.type.toLowerCase()}s at <b>${DOMAIN_NAME}</b>.`;
 
     const postUrl = `${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`;
     const encodedTitle = manga?.name;

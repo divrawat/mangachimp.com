@@ -3,7 +3,7 @@ export async function getServerSideProps({ query, res }) {
     try {
         const { slug, page } = query;
         const data = await singleCategory(slug, page);
-        const metatags = await getAllMetaTags();
+        // const metatags = await getAllMetaTags();
 
         res.setHeader(
             'Cache-Control',
@@ -13,7 +13,12 @@ export async function getServerSideProps({ query, res }) {
         if (data.error) {
             return { props: { errorCode: 404 } };
         } else {
-            return { props: { category: data.category, mangas: data.mangas, query, totalCount: data.totalCount, metatags: metatags?.data } };
+            return {
+                props: {
+                    category: data.category, mangas: data.mangas, query, totalCount: data.totalCount,
+                    // metatags: metatags?.data 
+                }
+            };
         }
 
     } catch (error) {
@@ -25,10 +30,10 @@ export async function getServerSideProps({ query, res }) {
 
 import Head from 'next/head';
 import { singleCategory } from '@/actions/category';
-import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO, IMAGES_SUBDOMAIN } from '@/config';
+import { DOMAIN, APP_NAME, NOT_FOUND_IMAGE, APP_LOGO, IMAGES_SUBDOMAIN, DOMAIN_NAME } from '@/config';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { getAllMetaTags } from '@/actions/metatags';
+
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -36,9 +41,9 @@ import { FaHome } from "react-icons/fa";
 import { Rubik } from '@next/font/google';
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '600' });
-import React from 'react';
-import parse from 'html-react-parser';
-import { Suspense } from 'react';
+// import React from 'react';
+// import parse from 'html-react-parser';
+// import { getAllMetaTags } from '@/actions/metatags';
 export const runtime = 'experimental-edge';
 
 const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) => {
@@ -118,7 +123,7 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
                 "@type": "CollectionPage",
                 "@id": `${DOMAIN}/categories/${category.slug}?page=${currentPage}/#webpage`,
                 "url": `${DOMAIN}/categories/${category.slug}?page=${currentPage}`,
-                "name": `${category.name} Page ${currentPage}: ${APP_NAME}`,
+                "name": `${category.name} Page ${currentPage}`,
                 "isPartOf": {
                     "@id": `${DOMAIN}/#website`
                 },
@@ -131,17 +136,18 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
     }
 
 
-    const DESCRIPTION = `Read ${category.name} manga, smahwa, manhua online. This page contains all the ${category.name} manga/mahwa/manhua available on ${APP_NAME}.`;
+    const DESCRIPTION = `Read ${category.name} mangas, manhwas, manhuas etc. online only on ${APP_NAME}. This page contains all the ${category.name} manga/mahwa/manhua available on ${DOMAIN_NAME}.`;
 
-
-    const parseMetaTags = (htmlString) => {
-        if (!htmlString) return null;
-        return parse(htmlString);
-    };
+    /*
+        const parseMetaTags = (htmlString) => {
+            if (!htmlString) return null;
+            return parse(htmlString);
+        };
+        */
 
     const head = () => (
         <Head>
-            <title>{`${category.name} Page ${currentPage}: ${APP_NAME}`}</title>
+            <title>{`${category.name} Page ${currentPage}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
             {/* {metatags?.map((metaTag, index) => (
@@ -152,7 +158,7 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
             <meta name="googlebot" content="noarchive" />
             <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/categories/${category.name}?page=${currentPage}`} />
-            <meta property="og:title" content={`${category.name} Page ${currentPage}: ${APP_NAME}`} />
+            <meta property="og:title" content={`${category.name} Page ${currentPage}`} />
             <meta property="og:description" content={DESCRIPTION} />
             <meta property="og:type" content="webiste" />
             <meta property="og:url" content={`${DOMAIN}/categories/${category.name}?page=${currentPage}`} />
@@ -205,22 +211,22 @@ const Category = ({ errorCode, category, mangas, query, totalCount, metatags }) 
                         <p className='text-center mb-3 font-bold'>{`Total Results: ${totalCount}`}</p>
                         <p className='text-center font-bold mb-8'>{`Page ${currentPage}`}</p>
 
-                        <Suspense fallback={<div>Loading...</div>}>
-                            <div className="flex justify-center sm:gap-10 gap-3 flex-wrap">
-                                {mangas?.map((manga, index) => (
-                                    <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] w-[45%]" key={index}>
-                                        <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
-                                            <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`}
-                                                className="mb-2 sm:w-[200px] w-full h-[200px] object-cover " />
-                                            <div className='p-2'>
-                                                <p className="sm:text-[12px] text-[10px] mb-1">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
-                                                <p className={`${roboto2.className} sm:text-[14px] text-[12px]  mb-1 text-wrap break-words`}>{manga?.name}</p>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
-                        </Suspense>
+
+                        <div className="flex justify-center sm:gap-10 gap-3 flex-wrap">
+                            {mangas?.map((manga, index) => (
+                                <div className="hover:scale-110 transition-transform rounded shadow sm:w-[200px] border border-[#282828] w-[45%]" key={index}>
+                                    <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
+                                        <img src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={`${manga?.name} Cover`}
+                                            className="mb-2 sm:w-[200px] w-full h-[200px] object-cover " />
+                                        <div className='p-2.5'>
+                                            <p className="sm:text-[12px] text-[10px] mb-1">{`Total Chapters:  ${manga?.totalChapters ?? 0}`}</p>
+                                            <p className={`${roboto2.className} sm:text-[14px] text-[12px]  mb-1 text-wrap break-words`}>{manga?.name}</p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+
 
 
 
