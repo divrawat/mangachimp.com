@@ -1,5 +1,5 @@
 
-// export const DOMAIN = '/';
+// export const DOMAIN = 'http://localhost:3000';
 // export const BACKEND_DOMAIN = 'http://localhost:8000';
 
 export const DOMAIN = 'https://mangachimp.com';
@@ -22,7 +22,7 @@ export const FAVICON = `${IMAGES_SUBDOMAIN}/public/favicon.png`;
 export const navLinks = [
     { text: 'New Chapters', href: `${DOMAIN}/new-chapters` },
     { text: 'New Mangas', href: `${DOMAIN}/new-mangas` },
-    { text: 'Contact', href: `${DOMAIN}/contact` },
+    // { text: 'Contact', href: `${DOMAIN}/contact` },
 ];
 
 export const FooterLinks = [
