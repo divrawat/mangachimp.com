@@ -1,3 +1,4 @@
+
 export async function getServerSideProps({ res }) {
   try {
     // const page = 1;
@@ -10,6 +11,7 @@ export async function getServerSideProps({ res }) {
         getLatestMangaChapters(),
         // getAllMetaTags()
       ]);
+
 
     if (data.error) { return { props: { errorCode: 404 } }; }
     res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
@@ -28,6 +30,16 @@ export async function getServerSideProps({ res }) {
     return { props: { errorCode: 500 } };
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -55,6 +67,7 @@ const roboto3 = Rubik({ subsets: ['latin'], weight: '600', });
 register();
 import { useRouter } from 'next/router';
 export const runtime = 'experimental-edge';
+
 
 
 export default function Home({ mangas, categories, latestmangachapters }) {
