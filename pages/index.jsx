@@ -164,6 +164,10 @@ export default function Home({ mangas, categories, latestmangachapters }) {
   return (
     <>
       {head()}
+      {/* <div className='fixed z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl  after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl  before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]'></div> */}
+
+      <div className='color'></div>
+
       <Navbar />
       <br />
 
@@ -179,6 +183,8 @@ export default function Home({ mangas, categories, latestmangachapters }) {
           <button type="submit" className="text-white absolute end-2.5 font-bold bottom-2.5 bg-gray-700 hover:scale-110 transition-transform focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2">Search</button>
         </div>
       </form>
+
+
 
 
       <h1 className={`${roboto.className}  text-[white] tracking-wider font-extrabold text-2xl px-3 text-center my-10`}>
@@ -241,7 +247,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
       <div className="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8 py-4 text-white">
         <div className="flex sm:gap-12 gap-3 flex-wrap justify-center">
           {latestmangachapters?.map((manga, index) => (
-            <div key={index} className="bg-black overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col border border-[#161616] hover:scale-105 transition-transform">
+            <div key={index} className="bg-[black] overflow-hidden shadow rounded-b sm:w-[210px] w-[45%] flex flex-col border border-[#161616] hover:scale-105 transition-transform">
               <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}`}>
                 <img className='sm:w-[210px] sm:h-[250px] h-[190px] object-cover w-full' src={`${IMAGES_SUBDOMAIN}/${manga?.slug}/cover-image/1.webp`} alt={manga?.mangaName} /></Link>
               <div className="px-3 py-5">
@@ -261,7 +267,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
 
 
                 <Link prefetch={false} href={`${DOMAIN}/manga/${manga?.slug}/chapter-${manga?.secondlatestChapterNumber}`}>
-                  <div className='flex justify-between items-center bg-[black] border border-[#353535] sm:px-3 px-2 py-2 rounded-md mt-3 hover:bg-[#2c2b2b] '>
+                  <div className='flex justify-between items-center bg-[black]  border border-[#353535] sm:px-3 px-2 py-2 rounded-md mt-3 hover:bg-[#2c2b2b] '>
                     <div><p className="sm:text-[12px] text-[8px] font-semibold rounded  break-words text-wrap">{`Chapter ${manga?.secondlatestChapterNumber ?? 0}`}</p></div>
                     <div><p className='sm:text-[9px] text-[7px]'>{`${manga?.secondlatestChapterDate ?? 0}`}</p></div>
                   </div>

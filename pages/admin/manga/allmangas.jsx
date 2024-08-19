@@ -16,7 +16,6 @@ const AllBlogs = () => {
         fullname: '',
         name: '',
         description: '',
-        longdescription: '',
         author: '',
         slug: '',
         type: '',
@@ -184,7 +183,6 @@ const AllBlogs = () => {
         formdata2.set('fullname', currentmanga?.fullname);
         formdata2.set('name', currentmanga?.name);
         formdata2.set('description', currentmanga?.description);
-        formdata2.set('longdescription', currentmanga?.longdescription);
         formdata2.set('author', currentmanga?.author);
         formdata2.set('releaseDate', currentmanga?.releaseDate);
         formdata2.set('type', currentmanga?.type);
@@ -310,9 +308,6 @@ const AllBlogs = () => {
 
                     <div className='font-bold text-gray-300 mb-2'>Description</div>
                     <textarea required id="message" rows={6} autoComplete="off" value={currentmanga?.description} onChange={handleCurrentMangaChange('description')} className="block p-2.5 mb-10 w-full text-sm bg-gray-800 rounded-lg border border-gray-300 text-white"></textarea>
-
-                    <div className='font-bold text-gray-300 mb-2'>Long Description</div>
-                    <textarea required id="message" rows={10} autoComplete="off" value={currentmanga?.longdescription} onChange={handleCurrentMangaChange('longdescription')} className="block p-2.5 mb-10 w-full text-sm bg-gray-800 rounded-lg border border-gray-300 text-white"></textarea>
 
 
                     <div className='font-bold text-gray-300 mb-2'>Author</div>

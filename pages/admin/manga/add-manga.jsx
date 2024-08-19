@@ -12,7 +12,6 @@ const CreateManga = () => {
         name: '',
         fullname: '',
         description: '',
-        longdescription: '',
         author: '',
         slug: '',
         type: '',
@@ -25,7 +24,7 @@ const CreateManga = () => {
     const [checked, setChecked] = useState([]);
     const [categories, setCategories] = useState([]);
 
-    const { error, formData, loading, fullname, name, slug, type, releaseDate, longdescription, createText, author, description } = values;
+    const { error, formData, loading, fullname, name, slug, type, releaseDate, createText, author, description } = values;
     const token = getCookie('token');
 
 
@@ -105,7 +104,6 @@ const CreateManga = () => {
                     loading: false,
                     name: '',
                     fullname: '',
-                    longdescription: '',
                     author: '',
                     description: '',
                     slug: '',
@@ -145,10 +143,6 @@ const CreateManga = () => {
 
                 <div className="block mb-4 text-sm font-medium text-white">Description</div>
                 <textarea required id="message" rows={6} autoComplete="off" value={description} onChange={handleChange('description')} className="block p-2.5 mb-10 w-full text-sm bg-gray-800 rounded-lg border border-gray-300 text-white"></textarea>
-
-                <div className="block mb-4 text-sm font-medium text-white">Long Description</div>
-                <textarea required id="message" rows={10} autoComplete="off" value={longdescription} onChange={handleChange('longdescription')} className="block p-2.5 mb-10 w-full text-sm bg-gray-800 rounded-lg border border-gray-300 text-white"></textarea>
-
 
 
                 <div className="block mb-4 text-sm font-medium text-white">Author</div>

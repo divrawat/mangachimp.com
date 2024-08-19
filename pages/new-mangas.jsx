@@ -4,19 +4,13 @@ export async function getServerSideProps({ query, res }) {
         const data = await GetLatestMangas(page);
         // const metatags = await getAllMetaTags();
 
-        res.setHeader(
-            'Cache-Control',
-            'public, s-maxage=10800, stale-while-revalidate=59'
-        );
+        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
 
-        if (data.error) {
-            return { props: { errorCode: 404 } };
-        }
+        if (data.error) { return { props: { errorCode: 404 } }; }
 
         return {
             props: {
-                latestmangas: data.mangas, totalCount: data.totalCount,
-                // metatags: metatags?.data 
+                latestmangas: data.mangas, totalCount: data.totalCount, // metatags: metatags?.data
             }
         };
 

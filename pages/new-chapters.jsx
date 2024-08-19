@@ -4,12 +4,7 @@ export async function getServerSideProps({ res }) {
         const data = await getLatestMangaChapters();
         // const metatags = await getAllMetaTags();
 
-        res.setHeader(
-            'Cache-Control',
-            'public, s-maxage=10800, stale-while-revalidate=59'
-        );
-
-
+        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
         if (data.error) { return { props: { errorCode: 404 } }; }
         return {
             props: {

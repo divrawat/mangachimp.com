@@ -1,59 +1,8 @@
-/*
 export async function getServerSideProps({ params, res }) {
     try {
-        // Fetch the manga chapters
         const response = await getmangachaptersRelated(params?.slug);
-        // const metatags = await getAllMetaTags();
-        if (response?.error) {
-            return { props: { errorcode: true } };
-        }
+        if (response?.error) { return { props: { errorcode: true } }; }
 
-        // Sort the chapters
-        const sortChapters = (chapterNumbers) => {
-            return chapterNumbers?.sort((a, b) => {
-                const parseChapter = (chapter) => {
-                    const match = chapter.match(/(\d+)([a-z]*)/i);
-                    return [parseInt(match[1]), match[2] || ''];
-                };
-                const [numA, suffixA] = parseChapter(a);
-                const [numB, suffixB] = parseChapter(b);
-                return numA !== numB ? numA - numB : suffixA.localeCompare(suffixB);
-            });
-        };
-
-        const chapterNumbers = response?.data?.map(chapter => chapter.chapterNumber) || [];
-        const sortedChapterNumbers = sortChapters(chapterNumbers);
-        const reversedChapterNumbers = sortedChapterNumbers.reverse();
-
-        // Set caching headers
-        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
-
-        // console.log(response);
-
-
-        // Return props
-        return {
-            props: {
-                manga: response, chapterArray: reversedChapterNumbers,
-                // metatags: metatags?.data
-            }
-        };
-    } catch (error) {
-        console.error('Error fetching manga data:', error);
-        return { props: { errorcode: true } };
-    }
-}
-*/
-
-export async function getServerSideProps({ params, res }) {
-    try {
-        // Fetch the manga chapters
-        const response = await getmangachaptersRelated(params?.slug);
-        if (response?.error) {
-            return { props: { errorcode: true } };
-        }
-
-        // Sort the chapters
         const sortChapters = (chapters) => {
             return chapters?.sort((a, b) => {
                 const parseChapter = (chapter) => {
@@ -68,16 +17,9 @@ export async function getServerSideProps({ params, res }) {
 
         const sortedChapters = sortChapters(response?.data);
         const reversedChapters = sortedChapters.reverse();
-
         res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=59');
+        return { props: { manga: response, chapterArray: reversedChapters } };
 
-
-        return {
-            props: {
-                manga: response,
-                chapterArray: reversedChapters
-            }
-        };
     } catch (error) {
         console.error('Error fetching manga data:', error);
         return { props: { errorcode: true } };
@@ -99,10 +41,10 @@ import { AiFillChrome } from "react-icons/ai";
 const roboto = Rubik({ subsets: ['latin'], weight: '800' });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '600', });
 const roboto3 = Rubik({ subsets: ['latin'], weight: '300', });
+import dynamic from 'next/dynamic';
+const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
 // import React from 'react';
 // import parse from 'html-react-parser';
-// import dynamic from 'next/dynamic';
-// const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
 // import { getAllMetaTags } from '@/actions/metatags';
 
 export const runtime = 'experimental-edge';
@@ -310,19 +252,6 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
     );
 
 
-    function splitTextIntoParagraphs(text, sentencesPerParagraph = 3) {
-        const sentences = text?.match(/[^\.!\?]+[\.!\?]+/g) || [];
-        const paragraphs = [];
-        for (let i = 0; i < sentences.length; i += sentencesPerParagraph) {
-            const paragraph = sentences.slice(i, i + sentencesPerParagraph).join(' ').trim();
-            paragraphs.push(paragraph);
-        }
-        return paragraphs;
-    }
-
-    const paragraphs = splitTextIntoParagraphs(manga?.manga?.longdescription);
-
-
     const formatCreatedAt = (isoDateString) => {
         const date = new Date(isoDateString);
         const options = {
@@ -341,53 +270,16 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
 
 
             <main>
-                <article >
-
-                    {/* <div className='px-3'>
-                        <div className='max-w-[1000px] mx-auto mt-8 bg-[black] rounded shadow px-3 text-white '>
-                            <h1 className={`${roboto.className} text-center font-bold text-2xl pt-6 pb-5 `}>{`${manga?.manga?.fullname} ${manga?.manga?.type}`}</h1>
-                            <img className="mx-auto w-[200px]" src={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} alt={`${manga?.manga?.name} Cover`} />
-                            <p className="my-5 leading-[2] md:px-6 px-2 text-center ">{manga?.manga?.description}</p>
-
-                            <div className='max-w-[800px] mx-auto'>
-                                <div className="flex flex-wrap justify-center gap-5 px-4">
-                                    {manga?.manga?.categories?.map((category, index) => (
-                                        <Link prefetch={false} href={`${DOMAIN}/categories/${category?.slug}?page=1`} key={index} className="text-white text-[13px] bg-gray-900  font-bold py-1.5 px-2 rounded hover:scale-110 active:scale-95 transition-transform">
-                                            {category?.name}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
+                <article>
 
 
-                            <div className="flex justify-center items-center md:gap-[150px] sm:gap-[100px] pb-8 gap-10 flex-wrap mt-14">
-                                <div className="text-center">
-                                    <p className="font-bold text-[21px] mb-2">Release</p>
-                                    <p>{manga?.manga?.releaseDate}</p>
-                                </div>
+                    <div className='max-w-[1100px] mx-auto md:flex md:gap-[80px] mt-8 text-white justify-center  bg-black border border-[#1e1e1e]'>
 
-                                <div className="text-center">
-                                    <p className="font-bold text-[21px] mb-2">Author</p>
-                                    <p>{manga?.manga?.author}</p>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className="font-bold text-[21px] mb-2">Type</p>
-                                    <p>{manga?.manga?.type}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div> */}
-
-
-                    <div className='md:flex md:gap-[80px] mt-8 text-white justify-center px-5 bg-black'>
-
-                        <div >
+                        <div className='md:w-[400px] md:pt-0 pt-6'>
                             <img className='md:w-[300px] sm:w-[250px] w-[200px] md:mx-0 mx-auto' src={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} alt={`${manga?.manga?.name} Cover`} />
                         </div>
 
-                        <div className='md:w-[700px]'>
+                        <div className='md:w-[700px] md:pr-5 md:p-0 p-4'>
                             <h1 className={`${roboto.className} tracking-wider text-center font-bold text-2xl pt-6 pb-5 `}>{`${manga?.manga?.fullname} ${manga?.manga?.type}`}</h1>
                             <p className={`${roboto3.className} my-4 leading-[2] text-[15px] px-2 text-center `}>{manga?.manga?.description}</p>
 
@@ -428,7 +320,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
 
                     <div className={`${roboto.className} text-2xl px-2 font-bold tracking-wider text-center md:mt-[100px] mt-10 mb-5 text-white`}>{`Read ${manga?.manga?.name} ${manga?.manga?.type} Chapters`}</div>
 
-                    <div className='flex justify-center text-[13px] flex-wrap items-center gap-3 mb-10 text-blue-300'>
+                    <div className='flex justify-center text-[13px] px-4 flex-wrap items-center gap-3 mb-10 text-blue-300'>
 
                         <div className='flex items-center gap-2'>
                             <div><FaHome /></div>
@@ -446,7 +338,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
 
 
                     <div className='mx-6'>
-                        <div className={`${roboto3.className} mt-10 py-3 border border-[#474747] bg-[black] rounded max-w-[900px] mb-10 mx-auto px-3 flex flex-wrap justify-center max-h-[400px] overflow-y-scroll sm:gap-5 gap-3`}>
+                        <div className={`${roboto3.className} mt-10 py-3 bg-black border border-[#323232] rounded max-w-[900px] mb-10 mx-auto px-3 flex flex-wrap justify-center max-h-[400px] overflow-y-scroll sm:gap-5 gap-3`}>
 
                             {chapterArray?.map((chapternumber, index) => (
                                 <div className="flex hover:scale-105 active:scale-95 transition-transform my-1" key={index}>
@@ -460,13 +352,13 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                     </div>
 
 
+                    <h2 className='md:text-4xl text-2xl font-bold text-center text-[white] font-blod px-4 mb-10 md:mt-[100px] mt-8'>Comment Section</h2>
+                    <div className='py-10 max-w-[1100px] mx-auto bg-[black] border border-[#1d1c1c] rounded-md'>
 
-                    {/* <div className='py-10 bg-[#051015] '>
-                        <h2 className='text-4xl text-center text-[white] font-blod px-4 mb-10'>Comment Section</h2>
-                        <section className='max-w-[1000px] mx-auto px-5'>
+                        <section className=' mx-auto px-5 '>
                             <DisqusComments url={`/manga/${mangaurl}`} identifier={mangaurl} title={`${manga?.manga?.name} ${manga?.manga?.type}`} />
                         </section>
-                    </div> */}
+                    </div>
 
 
                     {/* <div className="max-w-[1200px] mx-auto mt-10 px-3">
@@ -484,15 +376,6 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                                 </div>
                             ))}
                         </div>
-                    </div> */}
-
-
-
-
-                    {/* <div className='max-w-[800px] mx-auto mt-10 px-5 '>
-                        {paragraphs?.map((paragraph, index) => (
-                            <p key={index} className='text-white py-6 tracking-wider leading-8 text-[15px]'>{paragraph}</p>
-                        ))}
                     </div> */}
 
 

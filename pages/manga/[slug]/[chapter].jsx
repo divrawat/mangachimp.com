@@ -72,9 +72,9 @@ import { FaRedditAlien } from "react-icons/fa";
 
 const roboto = Rubik({ subsets: ['latin'], weight: '800', });
 const roboto2 = Rubik({ subsets: ['latin'], weight: '500', });
-import React from 'react';
-import parse from 'html-react-parser';
-import dynamic from 'next/dynamic';
+// import React from 'react';
+// import parse from 'html-react-parser';
+// import dynamic from 'next/dynamic';
 // const DisqusComments = dynamic(() => import('@/components/DisQus'), { ssr: false });
 export const runtime = 'experimental-edge';
 
@@ -234,10 +234,12 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
         ]
     }
 
+    /*
     const parseMetaTags = (htmlString) => {
         if (!htmlString) return null;
         return parse(htmlString);
     };
+    */
 
 
     const head = () => (
