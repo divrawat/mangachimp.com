@@ -1,7 +1,7 @@
 import { getChapterSitemap } from "@/actions/chapter";
 import { DOMAIN } from "../config";
 import slugify from 'slugify';
-// export const runtime = 'experimental-edge';
+export const runtime = 'experimental-edge';
 
 const generateXmlSitemap = (blogs) => {
   let xml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -1,6 +1,6 @@
 import { getMangasSitemap } from '../actions/manga';
 import { DOMAIN } from "../config";
-// export const runtime = 'experimental-edge';
+export const runtime = 'experimental-edge';
 
 const generateXmlSitemap = (blogs) => {
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
