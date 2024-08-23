@@ -151,7 +151,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                 "@type": "WebPage",
                 "@id": `${DOMAIN}/${mangaurl}/#webpage`,
                 "url": `${DOMAIN}/${mangaurl}/#webpage`,
-                "name": `${manga?.manga?.name} ${manga?.manga?.type}: ${APP_NAME}`,
+                "name": `${manga?.manga?.name} ${manga?.manga?.type}`,
                 "datePublished": `${manga?.manga?.createdAt}`,
                 "dateModified": `${manga?.manga?.createdAt}`,
                 "isPartOf": {
@@ -177,7 +177,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
             },
             {
                 "@type": "Article",
-                "headline": `${manga?.manga?.name} ${manga?.manga?.type}: ${APP_NAME}`,
+                "headline": `${manga?.manga?.name} ${manga?.manga?.type}`,
                 "datePublished": `${manga?.manga?.createdAt}`,
                 "dateModified": `${manga?.manga?.createdAt}`,
                 "articleSection": categoryNames,
