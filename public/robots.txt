@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /admin/
 
 Sitemap: https://mangachimp.com/chapter-sitemap1.xml
-Sitemap: https://mangachimp.com/chapter-sitemap2.xml
+Sitemap: https://mangachimp.com/manga-sitemap.xml

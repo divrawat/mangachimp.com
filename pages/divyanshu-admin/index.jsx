@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { adminSignin, getCookie, isAuth, authenticate } from '../../actions/auth';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
+import Head from 'next/head';
 
 const token = getCookie('token');
 
@@ -54,9 +55,16 @@ const Admin = () => {
     };
 
 
+    const head = () => (
+        <Head>
+            <title>Admin</title>
+            <meta name="robots" content="noindex, follow, noarchive, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
+        </Head >
+    );
+
     return (
         <form autoComplete="off" onSubmit={handleSubmit}>
-
+            {head()}
             <Toaster />
             <div className="relative flex min-h-screen text-gray-800 antialiased flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
 
