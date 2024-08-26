@@ -54,6 +54,6 @@ export default function Sitemap() {
 
 
 
-export default function Sitemap() {
-  return null;
-}
+export default function Sitemap() { return null; }
+
+
