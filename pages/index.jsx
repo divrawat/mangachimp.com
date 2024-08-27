@@ -146,7 +146,6 @@ export default function Home({ mangas, categories, latestmangachapters }) {
         </React.Fragment>
       ))} */}
       <meta name="googlebot" content="noarchive" />
-      <meta name="robots" content="noarchive" />
       <meta property="og:locale" content="en_US" />
       <meta property="og:type" content="website" />
       <link rel="canonical" href={`${DOMAIN}`} />

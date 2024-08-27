@@ -247,14 +247,12 @@ export default function Chapter({ errorcode, manga, chapterArray, chapterData })
             <title>{`${manga?.name} Chapter ${chapterData?.chapterNumber}`}</title>
             <meta name="description" content={DESCRIPTION} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-
             {/* {metatags?.map((metaTag, index) => (
                 <React.Fragment key={index}>
                     {parseMetaTags(metaTag.content)}
                 </React.Fragment>
             ))} */}
             <meta name="googlebot" content="noarchive" />
-            <meta name="robots" content="noarchive" />
             <link rel="canonical" href={`${DOMAIN}/manga/${manga?.slug}/chapter-${chapterData?.chapterNumber}`} />
             <meta property="og:title" content={`${manga?.name} Chapter ${chapterData?.chapterNumber}`} />
             <meta property="og:description" content={DESCRIPTION} />
