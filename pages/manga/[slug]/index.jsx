@@ -127,7 +127,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
             },
             {
                 "@type": "BreadcrumbList",
-                "@id": `${DOMAIN}/${mangaurl}/#breadcrumb`,
+                "@id": `${DOMAIN}/manga/${mangaurl}/#breadcrumb`,
                 "itemListElement": [
                     {
                         "@type": "ListItem",
@@ -149,8 +149,8 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
             },
             {
                 "@type": "WebPage",
-                "@id": `${DOMAIN}/${mangaurl}/#webpage`,
-                "url": `${DOMAIN}/${mangaurl}/#webpage`,
+                "@id": `${DOMAIN}/manga/${mangaurl}/#webpage`,
+                "url": `${DOMAIN}/manga/${mangaurl}/#webpage`,
                 "name": `${manga?.manga?.name} ${manga?.manga?.type}`,
                 "datePublished": `${manga?.manga?.createdAt}`,
                 "dateModified": `${manga?.manga?.createdAt}`,
@@ -162,12 +162,12 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                 },
                 "inLanguage": "en-US",
                 "breadcrumb": {
-                    "@id": `${DOMAIN}/${mangaurl}/#breadcrumb`
+                    "@id": `${DOMAIN}/manga/${mangaurl}/#breadcrumb`
                 }
             },
             {
                 "@type": "Person",
-                "@id": `${DOMAIN}/${mangaurl}/#author`,
+                "@id": `${DOMAIN}/manga/${mangaurl}/#author`,
                 "image": {
                     "@type": "ImageObject",
                     "@id": "https://secure.gravatar.com/avatar/?s=96&amp;d=mm&amp;r=g",
@@ -182,14 +182,14 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                 "dateModified": `${manga?.manga?.createdAt}`,
                 "articleSection": categoryNames,
                 "author": {
-                    "@id": `${DOMAIN}/${mangaurl}/#author`
+                    "@id": `${DOMAIN}/manga/${mangaurl}/#author`
                 },
                 "publisher": {
                     "@id": `${DOMAIN}/#person`
                 },
                 "description": `${manga?.manga?.description}`,
                 "name": `${manga?.manga?.name} ${manga?.manga?.type}`,
-                "@id": `${DOMAIN}/${mangaurl}/#richSnippet`,
+                "@id": `${DOMAIN}/manga/${mangaurl}/#richSnippet`,
                 "isPartOf": {
                     "@id": `${DOMAIN}/${mangaurl}/#webpage`
                 },
@@ -198,7 +198,7 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
                 },
                 "inLanguage": "en-US",
                 "mainEntityOfPage": {
-                    "@id": `${DOMAIN}/${mangaurl}/#webpage`
+                    "@id": `${DOMAIN}/manga/${mangaurl}/#webpage`
                 }
             }
         ]
@@ -226,11 +226,11 @@ const MangaPage = ({ errorcode, manga, chapterArray }) => {
             <meta name="googlebot" content="noarchive" />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="article" />
-            <link rel="canonical" href={`${DOMAIN}/${mangaurl}`} />
+            <link rel="canonical" href={`${DOMAIN}/manga/${mangaurl}`} />
             <meta property="og:title" content={`${manga?.manga?.name} ${manga?.manga?.type}`} />
             <meta property="og:description" content={DESCRIPTION} />
             <meta property="og:type" content="webiste" />
-            <meta property="og:url" content={`${DOMAIN}/${mangaurl}`} />
+            <meta property="og:url" content={`${DOMAIN}/manga/${mangaurl}`} />
             <meta property="og:site_name" content={`${APP_NAME}`} />
             <meta property="og:image" content={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} />
             <meta property="og:image:secure_url" content={`${IMAGES_SUBDOMAIN}/${manga?.manga?.slug}/cover-image/1.webp`} />
