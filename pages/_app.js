@@ -6,6 +6,7 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 NProgress.configure({ showSpinner: false })
 import { useEffect } from 'react';
+import Popup from "@/components/Popup";
 
 function MyApp({ Component, pageProps }) {
   /*
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <Popup />
       <Component {...pageProps} />
     </>
   );
