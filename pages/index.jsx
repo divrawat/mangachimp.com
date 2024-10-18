@@ -191,7 +191,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
       </h1>
 
 
-      <Swiper loop={true} centeredSlides={true}
+      {/* <Swiper loop={true} centeredSlides={true}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         modules={[Autoplay, Pagination, Navigation]} className="mySwiper" >
@@ -238,7 +238,7 @@ export default function Home({ mangas, categories, latestmangachapters }) {
               </div>
             </div>
           </SwiperSlide>))}
-      </Swiper>
+      </Swiper> */}
 
 
 
