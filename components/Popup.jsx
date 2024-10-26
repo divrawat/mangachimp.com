@@ -52,7 +52,7 @@ export default function Popup() {
 
                 <div className='flex justify-center gap-5 items-center mt-5 mb-5'>
                     <div>
-                        <a href="https://t.me/manga_chimp_toons" className="flex gap-1 items-center bg-blue-600 text-white rounded-md px-2 py-1">
+                        <a href="https://telegram.me/manga_chimp_toons" className="flex gap-1 items-center bg-blue-600 text-white rounded-md px-2 py-1">
                             <span><FaTelegram /></span>
                             <span className={`${roboto.className} text-[16px] tracking-wider`}>Telegram</span>
                         </a>
